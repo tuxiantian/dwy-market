@@ -19,19 +19,25 @@ export const EVENT_PULLUP_RESET = 'pullup:reset';
  * 产品项模式：默认
  * @type {String}
  */
-export const MODE_PRODUCT_DEF = 'def';
+export const MODE_PRODUCT_DEF = 0;
 
 /**
  * 产品项模式:推荐位
  * @type {String}
  */
-export const MODE_PRODUCT_REC = 'rec';
+export const MODE_PRODUCT_REC = 1;
 
 /**
  * 产品项模式:购物车
  * @type {String}
  */
-export const MODE_PRODUCT_CART = 'cart';
+export const MODE_PRODUCT_CART = 2;
+
+/**
+ * 产品项模式:订单
+ * @type {String}
+ */
+export const MODE_PRODUCT_ORDER = 3;
 
 export const ORDER_STATUS_ALL = 0;
 export const ORDER_STATUS_UNPAY = 1;

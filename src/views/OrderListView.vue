@@ -6,9 +6,9 @@
        @click="status = tab.status">{{tab.text}}</tab-item>
     </tab>
     <div class="scroll-content has-header">
-      <scroller :lock-x="true" height="100%">
+      <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="padding-vertical">
-          <order-item></order-item>
+          <order-item v-link="{name:'orderDetail',params:{id:00211}}"></order-item>
           <order-item></order-item>
           <order-item></order-item>
           <order-item></order-item>

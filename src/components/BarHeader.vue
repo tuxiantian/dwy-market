@@ -3,7 +3,7 @@
 <header class="bar bar-header bar-dark" :class="className">
     <slot>
         <slot name="left">
-            <button class="button button-icon back-button" v-show="showBackButton" v-touch:tap="goBack()">
+            <button class="button button-icon back-button" v-show="showBackButton" @click.stop="goBack()">
                 <i class="icon icon-angle-left"></i>
             </button>
         </slot>
@@ -100,7 +100,7 @@ export default {
       onCancel(e){
         this.$emit('on-cancel',e);
       },
-      goBack() {
+      goBack(e) {
         window.history.back();
       }
     },

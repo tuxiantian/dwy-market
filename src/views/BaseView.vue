@@ -14,6 +14,7 @@ import Scroller from 'vux/src/components/scroller'
 import Group from 'vux/src/components/group'
 import Cell from 'vux/src/components/cell'
 import XNumber from 'vux/src/components/x-number'
+import XTextarea from 'vux/src/components/x-textarea'
 import Swiper from 'vux/src/components/swiper'
 import SwiperItem from 'vux/src/components/swiper-item'
 import {Tab,TabItem} from 'vux/src/components/tab'
@@ -45,6 +46,7 @@ export default Vue.extend({
         XNumber,
         Swiper,
         SwiperItem,
+        XTextarea,
         Tab,
         TabItem,
         BarHeader,

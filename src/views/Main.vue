@@ -3,7 +3,7 @@
 <template>
 
 <div class="view">
-    <router-view keep-alive class="scroll-content has-tabs"></router-view>
+    <router-view keep-alive class="scroll-content has-tabs" transition="fade"></router-view>
     <div class="tabs tabs-dark tabs-icon-top">
         <a class="tab-item" v-for="nav of navList" v-link="{name:nav.route,exact:true,replace:true}">
             <span class="badge badge-assertive" v-if="routeShoppingCart===nav.route">10</span>

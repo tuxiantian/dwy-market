@@ -4,8 +4,10 @@ import SearchView from './views/SearchView'
 import CategoryListView from './views/CategoryListView'
 import ShoppingCartView from './views/ShoppingCartView'
 import OrderListView from './views/OrderListView'
+import OrderDetailView from './views/OrderDetailView'
 import PersonalView from './views/PersonalView'
 import ProductListView from './views/ProductListView'
+import ProductDetailView from './views/ProductDetailView'
 
 
 
@@ -111,7 +113,7 @@ export const ROUTE_PRODUCT_DETAIL = 'productDetail';
 export default {
   '/': {
     component: {
-      template: `<div><router-view></router-view></div>`
+      template: `<div><router-view keep-alive transition="fade"></router-view></div>`
     },
     subRoutes: {
       '/': {
@@ -145,13 +147,11 @@ export default {
       },
       '/products/:id': {
         name: ROUTE_PRODUCT_DETAIL,
-        component: {}
+        component: ProductDetailView
       },
       '/orders/:id': {
         name: ROUTE_ORDER_DETAIL,
-        component: {
-          template: `<h1>Order Details</h1>`
-        }
+        component: OrderDetailView
       },
       '/search': {
         name: ROUTE_SEARCH,

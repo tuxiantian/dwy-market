@@ -3,21 +3,19 @@
     <header class="order-item-header">
       <strong>订单号：<span>625412874554</span></strong>
     </header>
-    <div class="item item-thumbnail-left">
-      <img :src="p2" alt="" />
-      <h3>日本进口充气娃娃</h3>
-      <p class="assertive">￥750.00</p>
-      <p>
-        x2
-      </p>
+    <div class="content">
+      <product-item :mode="3"></product-item>
+      <product-item :mode="3"></product-item>
     </div>
     <footer class="order-item-footer">
-      <span class="assertive">待付款</span>
-      <!-- <div class="">
-        共2件 实付：
-        <strong class="assertive">￥1500.00</strong>
-      </div> -->
-      <div class="">
+      <div class="footer-item flex space-between">
+        <span class="assertive">待付款</span>
+        <div class="">
+          共2件 实付：
+          <strong class="assertive">￥1500.00</strong>
+        </div>
+      </div>
+      <div class="footer-item text-right flex ver-center right">
         <button type="button" class="button button-small">取消订单</button>
         <button type="button" class="button button-small button-dark margin-left">
           <strong>去付款</strong>
@@ -29,17 +27,17 @@
 
 <script>
 import p2 from '../assets/p2.jpg'
+import ProductItem from './ProductItem'
 export default {
   data: function () {
     return {
       p2:p2
     }
   },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
   methods: {},
-  components: {}
+  components: {
+    ProductItem
+  }
 }
 </script>
 
@@ -61,12 +59,13 @@ $order-item-footer-height:40px;
     background-color: $light;
   }
   .order-item-footer{
-    @extend .order-item-header;
-    @include display-flex();
-    @include justify-content(space-between);
-    @include align-items(center);
     line-height: 1;
     color:$gray;
+
+    .footer-item{
+      @extend .order-item-header;
+      border-bottom: 1px solid $stable;
+    }
   }
   .item{
 

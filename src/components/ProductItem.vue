@@ -1,6 +1,7 @@
 <template lang="html">
-  <div :class="itemClass">
+  <div :class="itemClass" v-link="{name:'productDetail',params:{id:34533}}">
     <img :src="p1" class="thumbnail" alt="" />
+
     <label class="checkbox checkbox-dark checkbox-small" v-if="isCartMode">
       <input type="checkbox">
     </label>
@@ -9,23 +10,36 @@
     <div v-if="isDefaultMode" class="content">
       <strong class="assertive">￥750.00</strong>
       <strike class="font-size-small">￥1000.00</strike>
-      <i class="dark icon icon-cart-plus">
-        <!-- <i class="icon icon-cart-plus"></i> -->
-      </i>
+      <i class="dark icon icon-cart-plus"></i>
     </div>
     <template v-if="isCartMode">
       <strong class="assertive">￥750.00</strong>
       <x-number></x-number>
       <i class="icon icon-trash-o"></i>
     </template>
+
+    <template v-if="isOrderModel">
+      <p class="assertive">￥750.00</p>
+      <p>
+        x2
+      </p>
+    </template>
   </div>
 </template>
 
 <script>
 import XNumber from 'vux/src/components/x-number'
-import {MODE_PRODUCT_DEF,MODE_PRODUCT_REC,MODE_PRODUCT_CART} from '../const'
+import {MODE_PRODUCT_DEF,MODE_PRODUCT_REC,MODE_PRODUCT_CART,MODE_PRODUCT_ORDER} from '../const'
 import p1 from '../assets/p1.jpg'
 import p2 from '../assets/p2.jpg'
+
+const classes=[
+  'product-item product-item-def',
+  'product-item product-item-rec',
+  'item item-checkbox item-thumbnail-left item-icon-right product-item-cart',
+  'item item-thumbnail-left'
+]
+
 export default {
   data: function () {
     return {
@@ -35,7 +49,7 @@ export default {
   },
   props:{
     mode:{
-      type:String,
+      type:Number,
       default:MODE_PRODUCT_DEF
     },
     product:{
@@ -55,13 +69,11 @@ export default {
     isCartMode(){
       return this.mode===MODE_PRODUCT_CART;
     },
+    isOrderModel(){
+      return this.mode===MODE_PRODUCT_ORDER;
+    },
     itemClass(){
-      return {
-        'product-item':!this.isCartMode,
-        'product-item-def':this.isDefaultMode,
-        'product-item-rec':this.isRecMode,
-        'item item-checkbox item-thumbnail-left item-icon-right product-item-cart':this.isCartMode
-      }
+      return classes[this.mode]
     }
   },
   methods: {},

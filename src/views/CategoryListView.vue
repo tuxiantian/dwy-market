@@ -29,7 +29,9 @@ export default HomeView.extend({
     }
   },
   computed: {},
-  ready: function () {},
+  ready: function () {
+    this.$toast('fuck you');
+  },
   attached: function () {},
   methods: {},
   components: {}

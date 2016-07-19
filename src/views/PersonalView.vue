@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="">
-    <scroller :lock-x="true" height="100%">
+    <scroller :lock-x="true" height="100%" v-ref:scroller>
       <div class="">
         <div class="item item-avatar-left">
           <img src="../assets/ben.png">
-          <h2>彭妈妈</h2>
+          <h2 class="font-size-large">彭妈妈</h2>
           <a class="font-size">如何成为代言人?</a>
         </div>
         <group>
@@ -12,10 +12,12 @@
         </group>
 
         <group>
-          <cell title="代言可获奖励" :is-link="true"></cell>
-          <cell title="粉丝销量" :is-link="true"></cell>
-          <cell title="可提现金额" :is-link="true"></cell>
-          <cell title="我的粉丝" :is-link="true"></cell>
+          <cell title="代言可获奖励" :is-link="true">
+            0.00元
+          </cell>
+          <cell title="粉丝销量" :is-link="true">0.00元</cell>
+          <cell title="可提现金额" :is-link="true">0.00元</cell>
+          <cell title="我的粉丝" :is-link="true">0</cell>
         </group>
 
         <p class="text-center padding">

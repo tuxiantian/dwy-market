@@ -118,27 +118,27 @@
  */
 
 .padding {
-  padding: $content-padding;
+  padding: $content-padding !important;
 }
 
 .padding-top,
 .padding-vertical {
-  padding-top: $content-padding;
+  padding-top: $content-padding !important;
 }
 
 .padding-right,
 .padding-horizontal {
-  padding-right: $content-padding;
+  padding-right: $content-padding !important;
 }
 
 .padding-bottom,
 .padding-vertical {
-  padding-bottom: $content-padding;
+  padding-bottom: $content-padding !important;
 }
 
 .padding-left,
 .padding-horizontal {
-  padding-left: $content-padding;
+  padding-left: $content-padding !important;
 }
 
 
@@ -148,27 +148,27 @@
  */
 
 .margin {
-  margin: $content-padding;
+  margin: $content-padding !important;
 }
 
 .margin-top,
 .margin-vertical {
-  margin-top: $content-padding;
+  margin-top: $content-padding !important;
 }
 
 .margin-right,
 .margin-horizontal {
-  margin-right: $content-padding;
+  margin-right: $content-padding !important;
 }
 
 .margin-bottom,
 .margin-vertical {
-  margin-bottom: $content-padding;
+  margin-bottom: $content-padding !important;
 }
 
 .margin-left,
 .margin-horizontal {
-  margin-left: $content-padding;
+  margin-left: $content-padding !important;
 }
 
 
@@ -326,9 +326,17 @@
 }
 
 .font-size-small{
-  font-size: $font-size-small
+  font-size: $font-size-small !important;
 }
 
 .font-size{
-  font-size: $font-size-base;
+  font-size: $font-size-base !important;
+}
+
+.font-size-secondary{
+  font-size: $font-size-secondary !important;
+}
+
+.font-size-large{
+  font-size: $font-size-large !important;
 }

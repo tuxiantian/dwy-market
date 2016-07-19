@@ -10,8 +10,8 @@
           <div>
             <swiper height="200px" :list="slides"></swiper>
             <div class="list margin-top">
-              <product-item mode="rec"></product-item>
-              <product-item mode="rec"></product-item>
+              <product-item :mode="1"></product-item>
+              <product-item :mode="1"></product-item>
             </div>
           </div>
         </scroller>
@@ -27,6 +27,8 @@ import BaseView from './BaseView.vue'
 import {MODE_HEADER_SEARCH} from '../const'
 import {ROUTE_SEARCH} from '../routes'
 
+import Product from '../services/Product'
+
 import p2 from '../assets/p2.jpg'
 import p1 from '../assets/p1.jpg'
 
@@ -39,6 +41,9 @@ export default BaseView.extend({
         {img:p2}
       ]
     }
+  },
+  ready(){
+    Product.fetchRecommend();
   },
   methods: {
     onHeaderBarTap(){

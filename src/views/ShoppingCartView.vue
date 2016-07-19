@@ -3,11 +3,10 @@
     <div class="scroll-content has-footer">
       <scroller :lock-x=true height="100%" v-ref:scroller>
         <div class="">
-          <product-item mode="cart"></product-item>
-          <product-item mode="cart"></product-item>
-
-          <product-item mode="cart"></product-item>
-
+          <product-item :mode="2"></product-item>
+          <product-item :mode="2"></product-item>
+          <product-item :mode="2"></product-item>
+          <product-item :mode="2"></product-item>
         </div>
       </scroller>
     </div>
