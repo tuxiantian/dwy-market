@@ -45,3 +45,33 @@ export const URL_SHOPPING_CART_REMOVE = '/addShopCart.do'
  * @type {String}
  */
 export const URL_SHOPPING_CART_UPDATE = '/addShopCart.do'
+
+/**
+ * 创建订单
+ * @type {string}
+ */
+export const URL_ORDER_CREATE = '/order'
+
+/**
+ * 订单列表
+ * @type {string}
+ */
+export const URL_ORDER_LIST = '/order'
+
+/**
+ * 订单详情
+ * @type {string}
+ */
+export const URL_ORDER_DETAIL = '/order'
+
+/**
+ * 删除订单
+ * @type {string}
+ */
+export const URL_ORDER_REMOVE = '/order'
+
+/**
+ * 取消订单
+ * @type {string}
+ */
+export const URL_ORDER_CANCEL = '/order'
