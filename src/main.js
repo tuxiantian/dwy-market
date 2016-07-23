@@ -10,6 +10,8 @@ Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(VueTouch);
 
+Vue.http.options.emulateJSON = true;
+
 const router = new VueRouter({
   history: true,
   linkActiveClass: 'active'

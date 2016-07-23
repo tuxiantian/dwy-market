@@ -1,8 +1,10 @@
 <template lang="html">
   <div class="cate-item">
     <div class="cate-item-border">
-      <h1 class="title">情趣用品</h1>
-      <h5 class="sub-title">fuck things</h5>
+      <img :src="img" alt="" />
+      <h1 class="title" v-text="title"></h1>
+      <h5 class="sub-title" v-text="subTitle"></h5>
+
     </div>
 
   </div>
@@ -16,7 +18,8 @@ export default {
   },
   props:{
     title:String,
-    subTitle:String
+    subTitle:String,
+    img:String
   }
 }
 </script>
@@ -51,9 +54,16 @@ export default {
     margin-bottom: $content-padding/2;
   }
   &>.cate-item-border{
+    position: relative;
     height: 100%;
     padding: $content-padding;
     border:1px solid $stable;
+    &>img{
+      width: 60%;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
   }
 }
 </style>

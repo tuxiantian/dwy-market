@@ -27,6 +27,7 @@
 </template>
 
 <script type="text/babel">
+  import store from './store'
   import Loading from 'vux/src/components/loading'
   import Toast from 'vux/src/components/toast'
   import Alert from 'vux/src/components/alert'
@@ -45,6 +46,7 @@
         confirmConfig: CONFIRM_CONFIG,
       }
     },
+    store,
     created(){
       Vue.http.interceptors.push((req, next) => {
 
@@ -60,6 +62,10 @@
 
           this.reqCount--;
 
+          if(response.data.respCode==0){
+            this._alert(response.data.respMsg||'请求失败');
+          }
+
           if (this.reqCount === 0) {
             setTimeout( () =>{
               this.showLoading = false;
@@ -74,6 +80,7 @@
       Alert,
       Confirm
     },
+
     methods:{
       _toast(option){
         this.toastConfig = this.handleParam(TOAST_CONFIG, option);

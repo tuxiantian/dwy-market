@@ -23,12 +23,22 @@
 
 <script>
 import BaseView from './BaseView'
+import Product from '../services/Product'
 export default BaseView.extend({
   data: function () {
     return {
+      products:[]
     }
   },
   computed: {},
+  route:{
+    data(){
+      return Product.fetch(this.$route.query.category)
+        .then(resp=>{
+          return {products:resp.data.datalist};
+        });
+    }
+  },
   ready: function () {},
   attached: function () {},
   methods: {},

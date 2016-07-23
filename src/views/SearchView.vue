@@ -10,13 +10,11 @@
       </button>
     </bar-header>
       <div class="scroll-content has-header">
-          <scroller :lock-x="true" height="100%">
+          <scroller :lock-x="true" height="100%" v-ref:scroller>
               <group>
                   <cell title="fuck">helie</cell>
                   <cell title="fuck">helie</cell>
-
                   <cell title="fuck">helie</cell>
-
               </group>
           </scroller>
       </div>
@@ -24,9 +22,9 @@
 </template>
 
 <script>
-import HomeView from './HomeView'
+import BaseView from './BaseView'
 import {MODE_HEADER_SEARCH} from '../const'
-export default HomeView.extend({
+export default BaseView.extend({
   data: function () {
     return {
       keywords:'',

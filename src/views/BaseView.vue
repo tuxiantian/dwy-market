@@ -6,6 +6,8 @@
 <script type="text/javascript">
 
   import Vue from 'vue'
+  import * as actions from '../store/actions'
+  import {ROUTE_SEARCH} from '../routes'
 
   import Scroller from 'vux/src/components/scroller'
   import Group from 'vux/src/components/group'
@@ -26,15 +28,19 @@
   import _ from 'lodash'
 
   import {
-          EVENT_PULLUP_RESET, EVENT_PULLUP_ENABLE, EVENT_PULLUP_DISABLE
-  }
-          from '../const'
+          EVENT_PULLUP_RESET,
+          EVENT_PULLUP_ENABLE,
+          EVENT_PULLUP_DISABLE
+  }from '../const'
 
   export default Vue.extend({
     computed: {
       uuid() {
         return this.$refs.scroller.uuid;
       }
+    },
+    vuex:{
+      actions
     },
     components: {
       Scroller,
@@ -72,12 +78,9 @@
        * @return {Void}
        */
       $rerender(delay=100) {
-        setTimeout(() = > {
+        setTimeout(()=>{
           this.$refs.scroller.reset();
-      },
-        delay
-      )
-        ;
+        },delay);
       },
 
       /**
@@ -111,12 +114,12 @@
        * @return {void}
        */
       $scrollTo(top = 0, duration = 200, delay = 100) {
-        setTimeout(() = > {
+        setTimeout(()=>{
           this.$refs.scroller._xscroll.scrollTo(top, duration);
+        },delay)
       },
-        delay
-      )
-        ;
+      onHeaderBarTap(){
+        this.$router.go({name:ROUTE_SEARCH});
       }
     }
   })

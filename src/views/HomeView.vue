@@ -44,11 +44,6 @@ export default BaseView.extend({
   },
   ready(){
     Product.fetchRecommend();
-  },
-  methods: {
-    onHeaderBarTap(){
-      this.$router.go({name:ROUTE_SEARCH});
-    }
   }
 });
 

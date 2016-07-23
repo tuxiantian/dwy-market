@@ -5,14 +5,12 @@
       v-touch:tap="onHeaderBarTap"></bar-header>
       <div class="scroll-content has-header">
           <scroller :lock-x="true" height="100%" v-ref:scroller>
-            <div>
-              <panel title="计生用品">
-                <div class="list padding-bottom">
-                  <cate-item v-link="{name:'products'}"></cate-item>
-                  <cate-item v-link="{name:'products'}"></cate-item>
-                  <cate-item v-link="{name:'products'}"> </cate-item>
-                </div>
-              </panel>
+            <div class="list padding-bottom light-bg">
+              <cate-item v-for="item of categories"
+                :title="item.name"
+                :img="item.imgurl"
+                v-link="{name:'products',query:{category:item.id}}"></cate-item>
+                <button type="button" @click="addCartItem(100,10)" class="button button-assertive">add cart</button>
             </div>
           </scroller>
       </div>
@@ -20,17 +18,24 @@
 </template>
 
 <script>
-import HomeView from './HomeView'
+import BaseView from './BaseView'
 import {MODE_HEADER_SEARCH} from '../const'
-export default HomeView.extend({
+import Product from '../services/Product'
+
+export default BaseView.extend({
   data: function () {
     return {
       mode:MODE_HEADER_SEARCH,
+      categories:[]
     }
   },
   computed: {},
   ready: function () {
-    this.$toast('fuck you');
+    Product.fetchCategory()
+      .then(resp=>{
+        this.categories=resp.data.datalist;
+        this.$rerender();
+      });
   },
   attached: function () {},
   methods: {},

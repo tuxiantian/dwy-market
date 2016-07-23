@@ -12,7 +12,7 @@ export default class Product {
   }
   static fetch(category) {
     var params = {
-      type: category
+      id: category
     };
 
     return Vue.http.post(URL_PRODUCT_LIST, params);
