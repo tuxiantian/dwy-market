@@ -10,24 +10,44 @@ export default class Product {
   constructor() {
 
   }
+  static _sendRequest(url, params) {
+    return new Promise(function(resolve, reject) {
+      Vue.http.post(url, params)
+        .then(resp => {
+          var data = resp.data;
+  
+          if (data.respCode == 0) {
+            return reject(resp);
+          }
+
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   static fetch(category) {
     var params = {
       id: category
     };
 
-    return Vue.http.post(URL_PRODUCT_LIST, params);
+    return this._sendRequest(URL_PRODUCT_LIST, params);
   }
 
 
-  static fetchRecommend(){
-    return Vue.http.post(URL_PRODUCT_REC);
+  static fetchRecommend() {
+    return this._sendRequest(URL_PRODUCT_REC);
   }
 
-  static fetchCategory(){
-    return Vue.http.post(URL_CATEGORY_LIST);
+  static fetchCategory() {
+    return this._sendRequest(URL_CATEGORY_LIST);
   }
 
-  static getById(productId){
-
+  static getById(productId) {
+    var params = {
+      goodsid: productId
+    };
+    return this._sendRequest(URL_PRODUCT_DETAIL, params);
   }
 }

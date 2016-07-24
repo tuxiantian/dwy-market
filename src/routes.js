@@ -8,7 +8,9 @@ import OrderDetailView from './views/OrderDetailView'
 import PersonalView from './views/PersonalView'
 import ProductListView from './views/ProductListView'
 import ProductDetailView from './views/ProductDetailView'
-
+import BonusView from './views/BonusView'
+import CashInfoView from './views/CashInfoView'
+import FansListView from './views/FansListView'
 
 
 /**
@@ -57,7 +59,7 @@ export const ROUTE_CONSIGNEE_INFO = 'consigneeInfo';
  * 提现
  * @type {String}
  */
-export const ROUTE_CASH = 'cash';
+export const ROUTE_CASH_INFO = 'cashInfo';
 
 /**
  * 我的二维码
@@ -156,6 +158,18 @@ export default {
       '/search': {
         name: ROUTE_SEARCH,
         component: SearchView
+      },
+      '/bonus': {
+        name: ROUTE_BONUS,
+        component: BonusView
+      },
+      '/cash': {
+        name: ROUTE_CASH_INFO,
+        component: CashInfoView
+      },
+      '/fans':{
+        name:ROUTE_FANS,
+        component:FansListView
       }
     }
   },

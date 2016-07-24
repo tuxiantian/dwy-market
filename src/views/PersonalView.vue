@@ -12,12 +12,12 @@
         </group>
 
         <group>
-          <cell title="代言可获奖励" :is-link="true">
+          <cell title="代言可获奖励" :is-link="true" v-link="{name:'bonus'}">
             0.00元
           </cell>
           <cell title="粉丝销量" :is-link="true">0.00元</cell>
-          <cell title="可提现金额" :is-link="true">0.00元</cell>
-          <cell title="我的粉丝" :is-link="true">0</cell>
+          <cell title="可提现金额" :is-link="true" v-link="{name:'cashInfo'}">0.00元</cell>
+          <cell title="我的粉丝" :is-link="true" v-link="{name:'fans'}">0</cell>
         </group>
 
         <p class="text-center padding">

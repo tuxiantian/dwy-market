@@ -34,7 +34,14 @@
   import Confirm from 'vux/src/components/confirm'
   import Vue from 'vue'
   import _ from 'lodash'
-  import {API_SERVER,API_PATH,TOAST_CONFIG,ALERT_CONFIG,CONFIRM_CONFIG} from './app.config'
+  import {
+    API_SERVER,
+    API_PATH,
+    TOAST_CONFIG,
+    ALERT_CONFIG,
+    CONFIRM_CONFIG,
+    DEF_USER
+  } from './app.config'
 
   export default {
     data(){
@@ -44,6 +51,7 @@
         toastConfig: TOAST_CONFIG,
         alertConfig: ALERT_CONFIG,
         confirmConfig: CONFIRM_CONFIG,
+        UID:DEF_USER
       }
     },
     store,
@@ -62,14 +70,14 @@
 
           this.reqCount--;
 
-          if(response.data.respCode==0){
-            this._alert(response.data.respMsg||'请求失败');
-          }
-
           if (this.reqCount === 0) {
             setTimeout( () =>{
               this.showLoading = false;
             }, 100);
+          }
+
+          if(response.data.respCode==0){
+            this._alert(response.data.respMsg||'请求失败');
           }
         });
       });
@@ -150,6 +158,10 @@
 
     &.right{
       @include justify-content(flex-end);
+    }
+
+    &.wrap{
+      @include flex-wrap(wrap);
     }
   }
 </style>

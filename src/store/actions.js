@@ -5,7 +5,7 @@ import {
   MUTATION_UPDATE_CART_ITEM
 }
 from './mutations'
-
+import _ from 'lodash'
 import ShoppingCart from '../services/ShoppingCart'
 
 /**
@@ -13,45 +13,48 @@ import ShoppingCart from '../services/ShoppingCart'
  * @param  {Object} store
  * @return {void}
  */
-export function syncCartItems(store) {
-  ShoppingCart.fetch()
+export function syncCartItems(store, uid) {
+  ShoppingCart.fetch(uid)
     .then(resp => {
-      store.dispatch(MUTATION_SYNC_CART, resp.data);
+      store.dispatch(MUTATION_SYNC_CART, resp.data.datalist);
     });
 }
 
 /**
  * 添加商品到购物车
  * @param {Object} store
- * @param {Number} id     商品ID
- * @param {Number} amount 商品数量
+ * @param {Number} productId  商品ID
+ * @param {Number} [uid] 用户ID
  */
-export function addCartItem(store, id, amount) {
-  ShoppingCart.addById(id, amount)
-    .then(resp => {
-      store.dispatch(MUTATION_ADD_CART_ITEM, resp.data);
-      this.$emit(MUTATION_ADD_CART_ITEM);
-    });
-}
+export function insertOrUpdate(store, params) {
+  var cartItem = _.find(store.state.cartItems, {
+    id: params.productId
+  });
 
-/**
- * 更新商品数量
- * @param  {Object} store
- * @param  {Number} id     productId
- * @param  {Number} amount product amount
- * @return {void}
- */
-export function updateCartItem(store, id, amount) {
-  ShoppingCart.updateById(id, amount)
-    .then(resp => {
-      store.dispatch(MUTATION_UPDATE_CART_ITEM, resp.data);
-    })
+  //如果在列表里找到此cartItem，说明已经存在，这时，更新数量
+  //如果不存在，则增加
+  if (cartItem) {
+    if (params.amount === 1) {
+      params.amount = cartItem.num + 1;
+    }
+
+    ShoppingCart.updateById(cartItem.cartid, params.amount)
+      .then(() => {
+        cartItem.num = params.amount;
+      });
+  } else {
+    ShoppingCart.addById(params.productId, params.uid, 1)
+      .then(resp => {
+        store.dispatch(MUTATION_ADD_CART_ITEM, resp.data.datalist[0]);
+        this.$emit(MUTATION_ADD_CART_ITEM);
+      });
+  }
 }
 
 /**
  * 删除购物车里的商品
  * @param  {Object} store
- * @param  {Number} id    product id
+ * @param  {Number} id    cart id
  * @return {void}
  */
 export function removeCartItem(store, id) {

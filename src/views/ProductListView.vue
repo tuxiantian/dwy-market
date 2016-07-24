@@ -4,17 +4,11 @@
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="padding-vertical list">
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
-          <product-item></product-item>
+          <product-item v-for="item of products"
+            v-link="{name:'productDetail',params:{id:item.id}}"
+            @on-add="insertOrUpdate({productId:item.id,amount:1,uid:$root.UID})"
+            :product="item">
+          </product-item>
         </div>
       </scroller>
     </div>
@@ -24,24 +18,41 @@
 <script>
 import BaseView from './BaseView'
 import Product from '../services/Product'
+import p1 from '../assets/p1.jpg'
+import p2 from '../assets/p2.jpg'
+
 export default BaseView.extend({
   data: function () {
     return {
+      cateId:null,
       products:[]
     }
   },
-  computed: {},
+
   route:{
-    data(){
-      return Product.fetch(this.$route.query.category)
+    data(transition){
+      transition.next({cateId:this.$route.query.category});
+    }
+  },
+  watch:{
+    cateId(val){
+      if(!val)return;
+      this.fetchProducts();
+    }
+  },
+  methods: {
+    fetchProducts(){
+      Product.fetch(this.cateId)
         .then(resp=>{
-          return {products:resp.data.datalist};
+          var arr=resp.datalist;
+          arr.forEach(item=>{
+            item.imgurl=p1;
+          });
+          this.products=arr;
+          this.$rerender();
         });
     }
   },
-  ready: function () {},
-  attached: function () {},
-  methods: {},
   components: {}
 });
 </script>

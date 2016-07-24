@@ -38,13 +38,20 @@ export const URL_SHOPPING_CART_ADD = '/addShopCart.do'
  * 从购物车中移除商品
  * @type {String}
  */
-export const URL_SHOPPING_CART_REMOVE = '/addShopCart.do'
+export const URL_SHOPPING_CART_REMOVE = '/delCartGoods.do'
 
 /**
  * 更新购物车商品数量
  * @type {String}
  */
-export const URL_SHOPPING_CART_UPDATE = '/addShopCart.do'
+export const URL_SHOPPING_CART_UPDATE = '/updCartGoods.do'
+
+/**
+ * 获取购物车商品列表
+ * @type {String}
+ */
+export const URL_SHOPPING_CART_LIST = '/cartGoodsList.do'
+
 
 /**
  * 创建订单

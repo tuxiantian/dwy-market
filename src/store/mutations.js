@@ -1,9 +1,9 @@
 import _ from 'lodash'
 
-export const MUTATION_SYNC_CART='SYNC_CART';
-export const MUTATION_ADD_CART_ITEM='ADD_CART_ITEM';
-export const MUTATION_REMOVE_CART_ITEM='REMOVE_CART_ITEM';
-export const MUTATION_UPDATE_CART_ITEM='UPDATE_CART_ITEM';
+export const MUTATION_SYNC_CART = 'SYNC_CART';
+export const MUTATION_ADD_CART_ITEM = 'ADD_CART_ITEM';
+export const MUTATION_REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
+export const MUTATION_UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
 
 export default {
 
@@ -12,7 +12,7 @@ export default {
    * @param state
    * @param mutation
    */
-  [MUTATION_ADD_CART_ITEM](state,cartItem){
+  [MUTATION_ADD_CART_ITEM](state, cartItem) {
     state.cartItems.push(cartItem);
   },
 
@@ -21,8 +21,10 @@ export default {
    * @param state
    * @param mutation
    */
-  [MUTATION_REMOVE_CART_ITEM](state,id){
-    let item=_.findWhere(state.cartItems,{id:id});
+  [MUTATION_REMOVE_CART_ITEM](state, id) {
+    let item = _.find(state.cartItems, {
+      cartid: id
+    });
     state.cartItems.$remove(item);
   },
 
@@ -31,22 +33,12 @@ export default {
    * @param state
    * @param mutation
    */
-  [MUTATION_SYNC_CART](state,cartItems){
-    state.cartItems=cartItems;
-  },
-
-  /**
-   * 更新购物车产品数量
-   * @param state
-   * @param id
-   * @param amount
-   */
-  [MUTATION_UPDATE_CART_ITEM](state,id,amount){
-    let item=_.findWhere(state.cartItems,{id:id});
-    if(item){
-      item.amount=amount;
-    }else{
-      console.warn('Can not found cart item where id='+id);
-    }
+  [MUTATION_SYNC_CART](state, cartItems) {
+    _.forEach(cartItems, item => {
+      item.num = Number(item.num);
+      item.price = Number(item.price);
+      item.selected = true;
+    });
+    state.cartItems = cartItems;
   }
 }

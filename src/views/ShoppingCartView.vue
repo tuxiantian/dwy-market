@@ -3,22 +3,27 @@
     <div class="scroll-content has-footer">
       <scroller :lock-x=true height="100%" v-ref:scroller>
         <div class="">
-          <product-item :mode="2"></product-item>
-          <product-item :mode="2"></product-item>
-          <product-item :mode="2"></product-item>
-          <product-item :mode="2"></product-item>
+          <product-item :mode="2"
+            v-for="item of cartItems"
+            @on-amount-change="onAmountChange"
+            @on-remove="removeCartItem(item.cartid)"
+            :product="item">
+          </product-item>
         </div>
       </scroller>
     </div>
     <footer class="bar bar-footer bar-button-right">
       <label class="checkbox checkbox-dark checkbox-small">
-        <input type="checkbox" value="">
+        <input type="checkbox"
+              :checked="isAllSelected"
+                @change="toggleAll"
+               :disabled="cartItems.length===0">
       </label>
       <span >全选</span>
-      <div class="content text-right" style="width:100%;">
+      <div class="content text-right">
         <div>
           <strong>合计:
-            <span class="assertive">￥2100.00</span>
+            <span class="assertive" v-text="totalPrice|price"></span>
           </strong>
         </div>
         <div class="font-size-small">不含运费</div>
@@ -30,15 +35,52 @@
 
 <script>
 import BaseView from './BaseView'
+import _ from 'lodash'
 export default BaseView.extend({
   data: function () {
     return {
     }
   },
-  computed: {},
+  computed: {
+    isAllSelected(){
+      return _.every(this.cartItems,item=>{
+        return item.selected;
+      });
+    },
+    selectedCartItems(){
+      return _.filter(this.cartItems,item=>{
+        return item.selected;
+      });
+    },
+    totalPrice(){
+
+      return _.reduce(this.selectedCartItems,(num,item)=>{
+
+        return num+item.num*item.price;
+      },0);
+    }
+  },
   ready: function () {},
   attached: function () {},
-  methods: {},
+  methods: {
+    onAmountChange(product,amount){
+      this.insertOrUpdate({
+        productId:product.id,
+        amount,
+      })
+    },
+    toggleAll(){
+      if (this.isAllSelected) {
+        _.forEach(this.cartItems, item=> {
+          item.selected = false
+        });
+      } else {
+        _.forEach(this.cartItems, item=> {
+          item.selected = true
+        });
+      }
+    }
+  },
   components: {}
 })
 </script>
@@ -53,6 +95,7 @@ export default BaseView.extend({
       padding-top: $content-padding/2;
       position: absolute;
       top:0;
+      left:$checkbox-width+$content-padding*2;
       right: $content-padding*8;
     }
 

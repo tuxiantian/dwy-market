@@ -5,19 +5,11 @@
 
 <script type="text/javascript">
 
-  import Vue from 'vue'
+  import Base from '../Base'
   import * as actions from '../store/actions'
   import {ROUTE_SEARCH} from '../routes'
 
-  import Scroller from 'vux/src/components/scroller'
-  import Group from 'vux/src/components/group'
-  import Cell from 'vux/src/components/cell'
-  import XNumber from 'vux/src/components/x-number'
-  import XTextarea from 'vux/src/components/x-textarea'
-  import Swiper from 'vux/src/components/swiper'
-  import SwiperItem from 'vux/src/components/swiper-item'
-  import {Tab, TabItem} from 'vux/src/components/tab'
-
+  import _ from 'lodash'
 
   import BarHeader from '../components/BarHeader'
   import ProductItem from '../components/ProductItem'
@@ -25,33 +17,31 @@
   import CateItem from '../components/CateItem'
   import OrderItem from '../components/OrderItem'
 
-  import _ from 'lodash'
-
   import {
           EVENT_PULLUP_RESET,
           EVENT_PULLUP_ENABLE,
           EVENT_PULLUP_DISABLE
   }from '../const'
 
-  export default Vue.extend({
+  export default Base.extend({
     computed: {
       uuid() {
         return this.$refs.scroller.uuid;
       }
     },
     vuex:{
-      actions
+      actions,
+      getters:{
+        cartItems:store=>store.cartItems,
+        totalAmount(store){
+          return _.reduce(store.cartItems,(num,item)=>{
+            return num+Number(item.num);
+          },0);
+        }
+      }
     },
+
     components: {
-      Scroller,
-      Group,
-      Cell,
-      XNumber,
-      Swiper,
-      SwiperItem,
-      XTextarea,
-      Tab,
-      TabItem,
       BarHeader,
       ProductItem,
       Panel,
@@ -61,6 +51,7 @@
     ready(){
       this.$rerender();
     },
+
     methods: {
       $toast(option) {
         this.$root._toast(option);
@@ -113,10 +104,13 @@
        * @param  {Number} delay    =             100 延迟触发
        * @return {void}
        */
-      $scrollTo(top = 0, duration = 200, delay = 100) {
+      $scrollTop(top = 0, duration = 0, delay = 200) {
         setTimeout(()=>{
-          this.$refs.scroller._xscroll.scrollTo(top, duration);
+          this.$refs.scroller._xscroll.scrollTop(top, duration);
         },delay)
+      },
+      $goBack(){
+        window.history.back();
       },
       onHeaderBarTap(){
         this.$router.go({name:ROUTE_SEARCH});

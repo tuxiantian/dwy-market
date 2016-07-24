@@ -1,8 +1,9 @@
 export const API_SERVER = 'http://shop.yunwalker.cn'
-export const API_PATH='/shop/api/v1'
+export const API_PATH = '/shop/api/v1'
 export const PAGE = 1;
 export const PAGE_SIZE = 3;
-
+export const IMAGE_WIDTH_HEIGHT_RATIO = 4 / 3;
+export const DEF_USER = 10086;
 
 export const PULLUP_CONFIG = {
   content: '上拉加载更多',

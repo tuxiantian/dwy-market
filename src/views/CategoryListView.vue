@@ -10,7 +10,7 @@
                 :title="item.name"
                 :img="item.imgurl"
                 v-link="{name:'products',query:{category:item.id}}"></cate-item>
-                <button type="button" @click="addCartItem(100,10)" class="button button-assertive">add cart</button>
+  
             </div>
           </scroller>
       </div>
@@ -33,7 +33,7 @@ export default BaseView.extend({
   ready: function () {
     Product.fetchCategory()
       .then(resp=>{
-        this.categories=resp.data.datalist;
+        this.categories=resp.datalist;
         this.$rerender();
       });
   },

@@ -10,8 +10,10 @@
           <div>
             <swiper height="200px" :list="slides"></swiper>
             <div class="list margin-top">
-              <product-item :mode="1"></product-item>
-              <product-item :mode="1"></product-item>
+              <product-item :mode="productMode"
+                v-link="{name:'productDetail',params:{id:product.id}}"
+                :product="product"
+                v-for="product of products"></product-item>
             </div>
           </div>
         </scroller>
@@ -24,7 +26,7 @@
 
 import BaseView from './BaseView.vue'
 
-import {MODE_HEADER_SEARCH} from '../const'
+import {MODE_HEADER_SEARCH,MODE_PRODUCT_REC} from '../const'
 import {ROUTE_SEARCH} from '../routes'
 
 import Product from '../services/Product'
@@ -36,6 +38,8 @@ export default BaseView.extend({
   data() {
     return {
       headerType: MODE_HEADER_SEARCH,
+      products:[],
+      productMode:MODE_PRODUCT_REC,
       slides:[
         {img:p1},
         {img:p2}
@@ -43,7 +47,11 @@ export default BaseView.extend({
     }
   },
   ready(){
-    Product.fetchRecommend();
+    Product.fetchRecommend()
+      .then(resp=>{
+        this.products=resp.datalist;
+        this.$rerender();
+      });
   }
 });
 
