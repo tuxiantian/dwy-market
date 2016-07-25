@@ -6,6 +6,8 @@ import VueTouch from 'vue-touch'
 import App from './App'
 import routes from './routes'
 
+// import vconsole from 'vconsole'
+
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(VueTouch);

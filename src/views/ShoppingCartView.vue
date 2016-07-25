@@ -3,10 +3,11 @@
     <div class="scroll-content has-footer">
       <scroller :lock-x=true height="100%" v-ref:scroller>
         <div class="">
-          <product-item :mode="2"
+          <product-item :mode="mode"
             v-for="item of cartItems"
             @on-amount-change="onAmountChange"
             @on-remove="removeCartItem(item.cartid)"
+                        track-by="cartid"
             :product="item">
           </product-item>
         </div>
@@ -28,7 +29,10 @@
         </div>
         <div class="font-size-small">不含运费</div>
       </div>
-      <button type="button pull-right button-full" class="button button-assertive">立即结算</button>
+      <button type="button pull-right button-full"
+              class="button button-assertive"
+              :disabled="selectedCartItems.length===0"
+              v-link="{name:'orderCreate'}">立即结算</button>
     </footer>
   </div>
 </template>
@@ -36,29 +40,15 @@
 <script>
 import BaseView from './BaseView'
 import _ from 'lodash'
+import {MODE_PRODUCT_CART} from '../const'
 export default BaseView.extend({
   data: function () {
     return {
+      mode:MODE_PRODUCT_CART
     }
   },
   computed: {
-    isAllSelected(){
-      return _.every(this.cartItems,item=>{
-        return item.selected;
-      });
-    },
-    selectedCartItems(){
-      return _.filter(this.cartItems,item=>{
-        return item.selected;
-      });
-    },
-    totalPrice(){
 
-      return _.reduce(this.selectedCartItems,(num,item)=>{
-
-        return num+item.num*item.price;
-      },0);
-    }
   },
   ready: function () {},
   attached: function () {},

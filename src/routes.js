@@ -3,6 +3,7 @@ import HomeView from './views/HomeView'
 import SearchView from './views/SearchView'
 import CategoryListView from './views/CategoryListView'
 import ShoppingCartView from './views/ShoppingCartView'
+import OrderCreateView from './views/OrderCreateView.vue'
 import OrderListView from './views/OrderListView'
 import OrderDetailView from './views/OrderDetailView'
 import PersonalView from './views/PersonalView'
@@ -92,6 +93,12 @@ export const ROUTE_ORDER_LIST = 'orders';
 export const ROUTE_ORDER_DETAIL = 'orderDetail';
 
 /**
+ * 订单详情
+ * @type {String}
+ */
+export const ROUTE_ORDER_CREATE = 'orderCreate';
+
+/**
  * 订单确认表单
  * @type {String}
  */
@@ -154,6 +161,10 @@ export default {
       '/orders/:id': {
         name: ROUTE_ORDER_DETAIL,
         component: OrderDetailView
+      },
+      '/orders/create': {
+        name: ROUTE_ORDER_CREATE,
+        component: OrderCreateView
       },
       '/search': {
         name: ROUTE_SEARCH,

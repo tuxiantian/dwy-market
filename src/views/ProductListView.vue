@@ -6,7 +6,7 @@
         <div class="padding-vertical list">
           <product-item v-for="item of products"
             v-link="{name:'productDetail',params:{id:item.id}}"
-            @on-add="insertOrUpdate({productId:item.id,amount:1,uid:$root.UID})"
+            @on-add="insertOrUpdate({productId:item.id,uid:$root.UID})"
             :product="item">
           </product-item>
         </div>

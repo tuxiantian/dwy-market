@@ -3,21 +3,15 @@
     <bar-header title="订单详情"></bar-header>
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
-        <div class="">
-          <group>
+        <div class="padding-bottom">
+          <group title="订单信息">
             <cell title="订单编号">01245125445</cell>
             <cell title="订单状态">已关闭</cell>
             <cell title="下单时间">2016-06-16 15:25:35</cell>
           </group>
 
-          <group>
-            <div class="item item-button-right">
-              <h3 class="font-size-large">收货人：洪培吉</h3>
-              <p class="margin-top" style="white-space: normal;">
-                浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605
-              </p>
-              <button class="button button-small button-icon font-size-secondary">13856232145</button>
-            </div>
+          <group title="收货人信息">
+            <consignee-info-item :consignee="consignee"></consignee-info-item>
             <div class="item">
               <h3 class="font-size-large">买家备注</h3>
               <p class="margin-top">
@@ -55,6 +49,11 @@ import BaseView from './BaseView'
 export default BaseView.extend({
   data: function () {
     return {
+      consignee:{
+        name:'洪培吉',
+        address:'浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
+        phone:13856232145
+      }
     }
   },
   computed: {},
@@ -64,9 +63,3 @@ export default BaseView.extend({
   components: {}
 });
 </script>
-
-<style lang="scss" scoped>
-  .font-size-large{
-    font-size: 17px !important;
-  }
-</style>

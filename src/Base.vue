@@ -15,6 +15,7 @@ import XTextarea from 'vux/src/components/x-textarea'
 import Swiper from 'vux/src/components/swiper'
 import SwiperItem from 'vux/src/components/swiper-item'
 import {Tab, TabItem} from 'vux/src/components/tab'
+import Radio from 'vux/src/components/radio'
 
 export default Vue.extend({
   data: function () {
@@ -39,8 +40,9 @@ export default Vue.extend({
     SwiperItem,
     XTextarea,
     Tab,
-    TabItem
-  },
+    TabItem,
+    Radio
+  }
 });
 </script>
 

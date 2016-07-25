@@ -15,14 +15,14 @@
     </div>
     <template v-if="isCartMode">
       <strong class="assertive" v-text="product.price|price"></strong>
-      <x-number @on-change="onChange"  :value="product.num"></x-number>
+      <x-number @on-change="onChange" :min="1"  :value="product.num" :fillable="false"></x-number>
       <i class="icon icon-trash-o" @click="onRemoveButtonClick"></i>
     </template>
 
     <template v-if="isOrderModel">
       <p class="assertive" v-text="product.price|price"></p>
       <p>
-        x{{product.amount}}
+        x {{product.num}}
       </p>
     </template>
   </div>
@@ -93,11 +93,8 @@ export default Base.extend({
       this.$emit('on-add',this.product);
     },
     onChange(val){
-      // this.$emit('on-amount-change',{
-      //   product:this.product,
-      //   val:val
-      // });
-      this.$emit('on-amount-change',this.product,val);
+
+      this.$emit('on-amount-change',this.product,Number(val));
     },
     onRemoveButtonClick(){
       this.$emit('on-remove',this.product);

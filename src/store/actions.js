@@ -34,7 +34,7 @@ export function insertOrUpdate(store, params) {
   //如果在列表里找到此cartItem，说明已经存在，这时，更新数量
   //如果不存在，则增加
   if (cartItem) {
-    if (params.amount === 1) {
+    if (!params.amount) {
       params.amount = cartItem.num + 1;
     }
 
@@ -60,7 +60,7 @@ export function insertOrUpdate(store, params) {
 export function removeCartItem(store, id) {
   ShoppingCart.removeById(id)
     .then(resp => {
-      store.dispatch(MUTATION_REMOVE_CART_ITEM, id)
+      store.dispatch(MUTATION_REMOVE_CART_ITEM, id);
       this.$emit(MUTATION_REMOVE_CART_ITEM);
     });
 }

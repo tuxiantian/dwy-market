@@ -16,6 +16,8 @@
   import Panel from '../components/Panel'
   import CateItem from '../components/CateItem'
   import OrderItem from '../components/OrderItem'
+  import ConsigneeInfoItem from '../components/ConsigneeInfoItem.vue'
+
 
   import {
           EVENT_PULLUP_RESET,
@@ -37,6 +39,16 @@
           return _.reduce(store.cartItems,(num,item)=>{
             return num+Number(item.num);
           },0);
+        },
+        isAllSelected(store){
+          return _.every(store.cartItems,item=>{
+            return item.selected;
+          });
+        },
+        selectedCartItems(store){
+          return _.filter(store.cartItems,item=>{
+            return item.selected;
+          });
         }
       }
     },
@@ -46,7 +58,17 @@
       ProductItem,
       Panel,
       CateItem,
-      OrderItem
+      OrderItem,
+      ConsigneeInfoItem
+    },
+    computed:{
+      totalPrice(){
+
+        return _.reduce(this.selectedCartItems,(num,item)=>{
+
+                  return num+item.num*item.price;
+      },0);
+      }
     },
     ready(){
       this.$rerender();
