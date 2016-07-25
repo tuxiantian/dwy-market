@@ -45,7 +45,12 @@ export function insertOrUpdate(store, params) {
   } else {
     ShoppingCart.addById(params.productId, params.uid, 1)
       .then(resp => {
-        store.dispatch(MUTATION_ADD_CART_ITEM, resp.data.datalist[0]);
+        var item = resp.data.datalist[0];
+
+        item.num = Number(item.num);
+        item.price = Number(item.price);
+
+        store.dispatch(MUTATION_ADD_CART_ITEM, item);
         this.$emit(MUTATION_ADD_CART_ITEM);
       });
   }

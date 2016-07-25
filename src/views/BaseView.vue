@@ -63,11 +63,9 @@
     },
     computed:{
       totalPrice(){
-
         return _.reduce(this.selectedCartItems,(num,item)=>{
-
-                  return num+item.num*item.price;
-      },0);
+          return num+item.num*item.price;
+        },0);
       }
     },
     ready(){
@@ -91,6 +89,7 @@
        * @return {Void}
        */
       $rerender(delay=100) {
+        if(!this.$refs.scroller)return;
         setTimeout(()=>{
           this.$refs.scroller.reset();
         },delay);
