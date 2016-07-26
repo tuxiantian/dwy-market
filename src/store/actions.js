@@ -11,6 +11,7 @@ import ShoppingCart from '../services/ShoppingCart'
 /**
  * 同步购物车商品列表
  * @param  {Object} store
+ * @param {Number|String} uid
  * @return {void}
  */
 export function syncCartItems(store, uid) {
@@ -45,11 +46,11 @@ export function insertOrUpdate(store, params) {
   } else {
     ShoppingCart.addById(params.productId, params.uid, 1)
       .then(resp => {
-        var item = resp.data.datalist[0];
+        var item = resp.data.datalist;
 
         item.num = Number(item.num);
         item.price = Number(item.price);
-
+        item.selected=true;
         store.dispatch(MUTATION_ADD_CART_ITEM, item);
         this.$emit(MUTATION_ADD_CART_ITEM);
       });

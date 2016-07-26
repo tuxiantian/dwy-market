@@ -9,6 +9,7 @@
         </div>
         <group>
           <cell title="我的二维码" :is-link="true"></cell>
+          <cell title="收货地址管理" :is-link="true" v-link="{name:consigneeListview}"></cell>
         </group>
 
         <group>
@@ -30,9 +31,11 @@
 
 <script>
 import BaseView from './BaseView'
+import {ROUTE_CONSIGNEE_LIST} from '../routes'
 export default BaseView.extend({
   data: function () {
     return {
+      consigneeListview:ROUTE_CONSIGNEE_LIST
     }
   },
   computed: {},

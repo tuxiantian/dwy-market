@@ -19,14 +19,10 @@
                 @blur="onInputBlur"
                 :placeholder="placeholder">
             </label>
-            <slot name="right">
-                <button class="button button-clear"
-                  v-touch:tap="onCancel"
-                  v-text="cancelText"
-                  v-show="showCancelButton">
-                </button>
-            </slot>
         </template>
+        <slot name="right">
+
+        </slot>
     </slot>
 </header>
 
@@ -66,7 +62,7 @@ export default {
           type:String,
           twoWay:true
         },
-        showCancel: {
+        showRight: {
           type:Boolean,
           default:false
         }
@@ -82,7 +78,7 @@ export default {
           return this.showBack && window.history.length >= 1;
         },
         showCancelButton(){
-          return this.isFocus&&this.showCancel
+          return this.isFocus;
         }
     },
     ready: function() {},

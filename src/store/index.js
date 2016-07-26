@@ -5,10 +5,10 @@ import mutations from './mutations'
 Vue.use(Vuex);
 
 const state = {
-  cartItems: []
+	cartItems: []
 };
 
 export default new Vuex.Store({
-  state,
-  mutations
+	state,
+	mutations
 });

@@ -1,25 +1,50 @@
+import _ from 'lodash'
+
+var arr = [];
+for (var i = 0; i < 10; i++) {
+  arr.push({
+    id: i * 1000 + 1,
+    name: '洪培吉',
+    address: '浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
+    phone: 13856232145,
+    active: false,
+    selected: false
+  });
+}
+
+arr[2].default=true;
 
 export default class Consignee {
-  constructor (){
-
+  constructor() {
+    
   }
-  static create (){
-
+  
+  static create() {
+    
   }
-
-  static updateById(){
-
+  
+  static updateById() {
+    
   }
-
-  static removeById(){
-
+  
+  static removeById(id) {
+    var item = _.find(arr, {id: id});
+    arr.$remove(item);
   }
-
-  static fetch(){
-
+  
+  /**
+   * TODO:get consignee list
+   * 获取收货人列表
+   * @static
+   * @returns {Array}
+   */
+  static fetch() {
+    
+    return arr;
   }
+  
+  static getById(id) {
 
-  static getById(){
-
+    return _.find(arr, {id: Number(id)});
   }
 }

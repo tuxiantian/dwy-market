@@ -11,11 +11,14 @@ import Scroller from 'vux/src/components/scroller'
 import Group from 'vux/src/components/group'
 import Cell from 'vux/src/components/cell'
 import XNumber from 'vux/src/components/x-number'
+import Address from 'vux/src/components/address'
+import XInput from 'vux/src/components/x-input'
 import XTextarea from 'vux/src/components/x-textarea'
 import Swiper from 'vux/src/components/swiper'
 import SwiperItem from 'vux/src/components/swiper-item'
 import {Tab, TabItem} from 'vux/src/components/tab'
 import Radio from 'vux/src/components/radio'
+import Actionsheet from 'vux/src/components/actionsheet'
 
 export default Vue.extend({
   data: function () {
@@ -41,7 +44,10 @@ export default Vue.extend({
     XTextarea,
     Tab,
     TabItem,
-    Radio
+    Radio,
+    Actionsheet,
+    Address,
+    XInput
   }
 });
 </script>

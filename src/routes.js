@@ -12,7 +12,8 @@ import ProductDetailView from './views/ProductDetailView'
 import BonusView from './views/BonusView'
 import CashInfoView from './views/CashInfoView'
 import FansListView from './views/FansListView'
-
+import ConsigneeListView from './views/ConsigneeInfoListView';
+import ConsigneeInfoEditView from './views/ConsigneeInfoEditView';
 
 /**
  * 登录
@@ -55,6 +56,22 @@ export const ROUTE_ME = 'me';
  * @type {String}
  */
 export const ROUTE_CONSIGNEE_INFO = 'consigneeInfo';
+
+/**
+ * 收货人管理
+ */
+export const ROUTE_CONSIGNEE_LIST='consigneeList';
+
+/**
+ * 收货人编辑
+ */
+export const ROUTE_CONSIGNEE_EDIT='consigneeEdit';
+
+/**
+ * 创建收货人
+ */
+export const ROUTE_CONSIGNEE_CREATE='consigneeCreate';
+
 
 /**
  * 提现
@@ -115,6 +132,8 @@ export const ROUTE_PRODUCT_LIST = 'products';
  * @type {String}
  */
 export const ROUTE_PRODUCT_DETAIL = 'productDetail';
+
+
 
 /**
  * 路由配置
@@ -181,6 +200,18 @@ export default {
       '/fans':{
         name:ROUTE_FANS,
         component:FansListView
+      },
+      '/consignees':{
+        name:ROUTE_CONSIGNEE_LIST,
+        component:ConsigneeListView
+      },
+      '/consignees/:id/edit':{
+        name:ROUTE_CONSIGNEE_EDIT,
+        component:ConsigneeInfoEditView
+      },
+      '/consignees/create':{
+        name:ROUTE_CONSIGNEE_CREATE,
+        component:ConsigneeListView
       }
     }
   },
