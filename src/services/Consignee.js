@@ -6,32 +6,35 @@ for (var i = 0; i < 10; i++) {
     id: i * 1000 + 1,
     name: '洪培吉',
     address: '浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
-    phone: 13856232145,
+    addr: ['130000', '130300', '130302'],
+    phone: 13856232145 + '',
     active: false,
     selected: false
   });
 }
 
-arr[2].default=true;
+arr[2].default = true;
 
 export default class Consignee {
   constructor() {
-    
+
   }
-  
+
   static create() {
-    
+
   }
-  
+
   static updateById() {
-    
+
   }
-  
+
   static removeById(id) {
-    var item = _.find(arr, {id: id});
+    var item = _.find(arr, {
+      id: id
+    });
     arr.$remove(item);
   }
-  
+
   /**
    * TODO:get consignee list
    * 获取收货人列表
@@ -39,12 +42,14 @@ export default class Consignee {
    * @returns {Array}
    */
   static fetch() {
-    
+
     return arr;
   }
-  
+
   static getById(id) {
 
-    return _.find(arr, {id: Number(id)});
+    return _.find(arr, {
+      id: Number(id)
+    });
   }
 }

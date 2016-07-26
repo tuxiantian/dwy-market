@@ -272,9 +272,9 @@ ion-infinite-scroll {
   @include transition-duration(0);
   z-index: $z-index-pane;
 }
-.view {
-  z-index: $z-index-view;
-}
+// .view {
+//   z-index: $z-index-view;
+// }
 .pane,
 .view {
   position: absolute;

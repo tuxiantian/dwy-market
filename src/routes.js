@@ -60,17 +60,17 @@ export const ROUTE_CONSIGNEE_INFO = 'consigneeInfo';
 /**
  * 收货人管理
  */
-export const ROUTE_CONSIGNEE_LIST='consigneeList';
+export const ROUTE_CONSIGNEE_LIST = 'consigneeList';
 
 /**
  * 收货人编辑
  */
-export const ROUTE_CONSIGNEE_EDIT='consigneeEdit';
+export const ROUTE_CONSIGNEE_EDIT = 'consigneeEdit';
 
 /**
  * 创建收货人
  */
-export const ROUTE_CONSIGNEE_CREATE='consigneeCreate';
+export const ROUTE_CONSIGNEE_CREATE = 'consigneeCreate';
 
 
 /**
@@ -147,7 +147,7 @@ export default {
       '/': {
         component: MainView,
         subRoutes: {
-          '/home': {
+          '/': {
             name: ROUTE_HOME,
             component: HomeView
           },
@@ -197,21 +197,21 @@ export default {
         name: ROUTE_CASH_INFO,
         component: CashInfoView
       },
-      '/fans':{
-        name:ROUTE_FANS,
-        component:FansListView
+      '/fans': {
+        name: ROUTE_FANS,
+        component: FansListView
       },
-      '/consignees':{
-        name:ROUTE_CONSIGNEE_LIST,
-        component:ConsigneeListView
+      '/consignees': {
+        name: ROUTE_CONSIGNEE_LIST,
+        component: ConsigneeListView
       },
-      '/consignees/:id/edit':{
-        name:ROUTE_CONSIGNEE_EDIT,
-        component:ConsigneeInfoEditView
+      '/consignees/:id/edit': {
+        name: ROUTE_CONSIGNEE_EDIT,
+        component: ConsigneeInfoEditView
       },
-      '/consignees/create':{
-        name:ROUTE_CONSIGNEE_CREATE,
-        component:ConsigneeListView
+      '/consignees/create': {
+        name: ROUTE_CONSIGNEE_CREATE,
+        component: ConsigneeListView
       }
     }
   },
