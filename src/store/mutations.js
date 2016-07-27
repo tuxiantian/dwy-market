@@ -10,7 +10,7 @@ export default {
   /**
    * 添加商品到购物车
    * @param state
-   * @param mutation
+   * @param cartItem
    */
   [MUTATION_ADD_CART_ITEM](state, cartItem) {
     state.cartItems.push(cartItem);
@@ -19,7 +19,7 @@ export default {
   /**
    * 从购车删除
    * @param state
-   * @param mutation
+   * @param id
    */
   [MUTATION_REMOVE_CART_ITEM](state, id) {
     let item = _.find(state.cartItems, {

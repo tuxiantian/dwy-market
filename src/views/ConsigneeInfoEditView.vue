@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="view">
     <bar-header title="收货人编辑"></bar-header>
     <div class="scroll-content overflow-scroll has-header">
       <group>
         <x-input title="收货人" :value.sync="consignee.name"></x-input>
         <x-input title="电话" :value.sync="consignee.phone"></x-input>
-        <address title="地址" :list="list" placeholder="请选择"></address>
+        <address title="地址" :list="list" :value.sync="consignee.addr" raw-value placeholder="请选择"></address>
         <x-textarea placeholder="详细地址"></x-textarea>
       </group>
 
@@ -31,8 +31,12 @@
       }
     },
     ready(){
-      debugger;
       this.consignee=Consignee.getById(this.$route.params.id);
+    },
+    watch:{
+      consignee(val){
+        this.$log('consignee');
+      }
     },
     methods: {
       someFn(){
