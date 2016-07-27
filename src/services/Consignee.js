@@ -7,12 +7,14 @@ import {
   URL_CONSIGNEE_LIST,
   URL_CONSIGNEE_REMOVE,
   URL_CONSIGNEE_UPDATE
-} from '../api'
+}
+from '../api'
 
 import {
   CONSIGNEE_DEFAULT,
   CONSIGNEE_NORMAL
-} from '../const'
+}
+from '../const'
 
 class Address {
   /**
@@ -60,7 +62,6 @@ export default class Consignee extends Product {
 
   /**
    * update consignee
-   * @param id {Number|String}
    * @param memberId {Number|String}
    * @returns {Promise}
    */
@@ -76,7 +77,10 @@ export default class Consignee extends Product {
    */
   static create(consignee, memberId) {
     consignee.memid = memberId;
-    return this._sendRequest(URL_CONSIGNEE_CREATE, Object.assign({},consignee));
+    return this._sendRequest(
+      URL_CONSIGNEE_CREATE,
+      Object.assign({}, consignee)
+    );
   }
 
   /**
@@ -87,10 +91,12 @@ export default class Consignee extends Product {
    * @returns {Promise}
    */
   static updateById(id, memberId, consignee) {
-    consignee.receid = id;
-    consignee.memid = memberId;
+    var data = Object.assign({}, consignee);
 
-    return this._sendRequest(URL_CONSIGNEE_UPDATE, consignee);
+    data.memid = memberId;
+    data.receid = id;
+
+    return this._sendRequest(URL_CONSIGNEE_UPDATE, data);
   }
 
   /**
@@ -99,7 +105,9 @@ export default class Consignee extends Product {
    * @returns {Promise}
    */
   static removeById(id) {
-    return this._sendRequest(URL_CONSIGNEE_REMOVE, {receid: id});
+    return this._sendRequest(URL_CONSIGNEE_REMOVE, {
+      receid: id
+    });
   }
 
   /**
@@ -108,7 +116,9 @@ export default class Consignee extends Product {
    * @returns {Array}
    */
   static fetch(memberId) {
-    return this._sendRequest(URL_CONSIGNEE_LIST, {memid: memberId});
+    return this._sendRequest(URL_CONSIGNEE_LIST, {
+      memid: memberId
+    });
   }
 
   /**
@@ -117,8 +127,12 @@ export default class Consignee extends Product {
    * @returns {Promise}
    */
   static getDefault(memberId) {
-    return this._sendRequest(URL_CONSIGNEE_DEF, {memid: memberId});
+    return this._sendRequest(URL_CONSIGNEE_DEF, {
+      memid: memberId
+    });
   }
 }
 
-export {Address, Consignee};
+export {
+  Address, Consignee
+};

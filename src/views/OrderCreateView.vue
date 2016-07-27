@@ -8,7 +8,7 @@
       <div>
         <div class="font-size-small assertive padding"> 为响应国家包裹实名制要求，请填写
           <strong class="font-size">真实姓名</strong>，否则可能无法送货 </div>
-        <consignee-info-item :consignee="consignee"></consignee-info-item>
+        <consignee-info-item :consignee="consignee" @click="showPopup=true"></consignee-info-item>
         <group title="商品信息">
           <product-item :mode="3" v-for="item of selectedCartItems" :product="item"></product-item>
           <cell title="运费">
@@ -32,6 +32,25 @@
       </h4>
       <button class="button button-assertive">提交订单</button>
     </div>
+    <popup :show.sync="showPopup" height="100%">
+      <div class="bar bar-header">
+        <button class="button button-icon back-button" @click.stop="showPopup=false">
+            <i class="icon icon-angle-left"></i>
+        </button>
+        <h3 class="title">选择收货人</h3>
+      </div>
+      <div class="scroll-content has-header">
+        <scroller :lock-x="true" height="100%" v-ref:scroll>
+          <div class="">
+            <consignee-info-item :consignee="item"
+              v-for="item of consignees"
+              @on-select="onSelect"
+              :show-radio="true">
+            </consignee-info-item>
+          </div>
+        </scroller>
+      </div>
+    </popup>
   </div>
 </template>
 <script>
@@ -43,10 +62,21 @@
         payTypes: ['支付宝', '微信'],
         freight: 5,
         taxRatio: 0.03,
-        consignee: {
-          name: '洪培吉',
-          address: '浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
-          phone: 13856232145
+        showPopup:false,
+        consignee: {}
+      }
+    },
+    route:{
+      activate(){
+        this.consignee=this.selectedConsignee;
+      }
+    },
+    watch:{
+      showPopup(val){
+        if(val){
+          this.$nextTick(()=>{
+            this.$refs.scroll.reset();
+          });
         }
       }
     },
@@ -64,7 +94,15 @@
       }
     },
     methods: {
-      someFn() {}
+      onSelect(item) {
+
+        this.consignees.forEach(consignee=>{
+          consignee.selected=consignee===item;
+        });
+
+        this.consignee=item;
+        this.showPopup=false;
+      }
     }
   });
 </script>

@@ -14,7 +14,7 @@
     "indent_char": " ",
     "indent_level": 0,
     "indent_with_tabs": true,
-    "preserve_newlines": true,
+    "preserve_newlines": false,
     "max_preserve_newlines": 0,
     "jslint_happy": true
   },
@@ -24,6 +24,5 @@
     "indent_level": 0,
     "indent_with_tabs": false
   },
-   "beautify.HTMLfiles": ["htm", "html","vue"],
    "beautify.onSave": ["js","json","css","scss","vue","html"]
 }

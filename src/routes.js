@@ -1,3 +1,4 @@
+import IndexView from './views/IndexView'
 import MainView from './views/Main'
 import HomeView from './views/HomeView'
 import SearchView from './views/SearchView'
@@ -141,9 +142,7 @@ export const ROUTE_PRODUCT_DETAIL = 'productDetail';
  */
 export default {
   '/': {
-    component: {
-      template: `<div><router-view keep-alive transition="fade"></router-view></div>`
-    },
+    component: IndexView,
     subRoutes: {
       '/': {
         component: MainView,

@@ -6,7 +6,8 @@
     <router-view keep-alive class="scroll-content has-tabs" transition="fade"></router-view>
     <div class="tabs tabs-dark tabs-icon-top">
         <a class="tab-item" v-for="nav of navList" v-link="{name:nav.route,exact:true,replace:true}">
-            <span class="badge badge-assertive" v-if="routeShoppingCart===nav.route">{{totalAmount}}</span>
+            <span class="badge badge-assertive"
+              v-if="routeShoppingCart===nav.route">{{totalAmount}}</span>
             <i class="icon icon-{{nav.icon}}"></i> {{nav.title}}
         </a>
     </div>
@@ -16,7 +17,7 @@
 
 <script type="text/javascript">
 import BaseView from './BaseView'
-import _ from 'lodash'
+
 import {
     ROUTE_HOME,
     ROUTE_CATEGORY_LIST,
@@ -52,13 +53,6 @@ export default BaseView.extend({
           icon: 'user'
       }]
     }
-  },
-  computed:{
-
-  },
-  ready(){
-    this.syncCartItems(this.$root.UID);
-    this.syncConsignees(this.$root.UID);
   }
 });
 

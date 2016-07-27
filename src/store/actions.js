@@ -13,7 +13,10 @@ import _ from 'lodash'
 
 import ShoppingCart from '../services/ShoppingCart'
 
-import {Consignee,Address} from '../services/Consignee'
+import {
+  Consignee, Address
+}
+from '../services/Consignee'
 
 /**
  * 同步购物车商品列表
@@ -57,7 +60,7 @@ export function insertOrUpdate(store, params) {
 
         item.num = Number(item.num);
         item.price = Number(item.price);
-        item.selected=true;
+        item.selected = true;
         store.dispatch(MUTATION_ADD_CART_ITEM, item);
         this.$emit(MUTATION_ADD_CART_ITEM);
       });
@@ -83,11 +86,13 @@ export function removeCartItem(store, id) {
  * @param dispatch
  * @param memberId
  */
-export function syncConsignees({dispatch}, memberId) {
+export function syncConsignees({
+  dispatch
+}, memberId) {
 
   Consignee.fetch(memberId)
-    .then(resp=>{
-      dispatch(MUTATION_SYNC_CONSIGNEES,resp.datalist);
+    .then(resp => {
+      dispatch(MUTATION_SYNC_CONSIGNEES, resp.datalist);
     });
 }
 
@@ -100,22 +105,73 @@ export function syncConsignees({dispatch}, memberId) {
  * @param mobile
  * @param detail
  */
-export function createConsignee({dispatch},memberId,{address,name,mobile,detail}) {
+export function createConsignee({
+  dispatch
+}, memberId, {
+  address, name, mobile, detail
+}) {
 
-  const [province,city,area]=address;
+  const [province, city, area] = address;
 
-  address=new Address(province,city,area,detail);
+  address = new Address(province, city, area, detail);
 
-  let consignee=new Consignee(name,mobile,address);
-  
+  let consignee = new Consignee(name, mobile, address);
+
   consignee.save(memberId)
-    .then(resp=>{
+    .then(resp => {
 
-      dispatch(MUTATION_ADD_CONSIGNEE,resp.datalist);
-      this.$toast('添加联系人成功！');
+      dispatch(MUTATION_ADD_CONSIGNEE, resp.datalist);
+
+      this.$emit('create-consignee-success');
     });
 }
 
-export function getConsigneeById({state},id) {
-  return _.find(state.consignees,{receid:id});
+/**
+ * get consignee by id
+ * @param  {Object} {state}
+ * @param  {Number|String} id
+ * @return {void}
+ */
+export function getConsigneeById({
+  state
+}, id) {
+  return _.find(state.consignees, {
+    receid: id
+  });
+}
+
+/**
+ * remove consignee via id
+ * @param  {function} {dispatch} [description]
+ * @param  {String} id         [description]
+ * @return {void}            [description]
+ */
+export function removeConsigneeById({
+  dispatch
+}, id) {
+
+  Consignee.removeById(id)
+    .then(resp => {
+      dispatch(MUTATION_REMOVE_CONSIGNEES, id);
+      this.$emit('remove-consignee-success');
+    });
+}
+
+export function updateConsignee({
+  dispatch
+}, memberId, {
+  address, name, mobile, detail, isDefault, receid
+}) {
+  const [province, city, area] = address;
+
+  address = new Address(province, city, area, detail);
+
+  let consignee = new Consignee(name, mobile, address, isDefault);
+
+  consignee.update(receid, memberId)
+    .then(resp => {
+
+      dispatch(MUTATION_UPDATE_CONSIGNEES, receid, consignee);
+      this.$emit('update-consignee-success');
+    });
 }

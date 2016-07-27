@@ -19,6 +19,7 @@ import SwiperItem from 'vux/src/components/swiper-item'
 import {Tab, TabItem} from 'vux/src/components/tab'
 import Radio from 'vux/src/components/radio'
 import Actionsheet from 'vux/src/components/actionsheet'
+import Popup from 'vux/src/components/popup'
 
 export default Vue.extend({
   data: function () {
@@ -47,7 +48,8 @@ export default Vue.extend({
     Radio,
     Actionsheet,
     Address,
-    XInput
+    XInput,
+    Popup
   }
 });
 </script>

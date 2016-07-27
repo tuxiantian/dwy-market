@@ -1,7 +1,7 @@
 <template>
   <div class="item item-button-right" :class="{'item-checkbox':showRadio}" @click="onItemClick">
     <label class="checkbox checkbox-dark checkbox-small" v-if="showRadio">
-      <input type="radio" name="consignee" v-model="consignee.selected">
+      <input type="radio" name="consignee" :checked="consignee.selected">
     </label>
     <h3 class="font-size-large">收货人：{{consignee.name}}
       <span class="badge badge-assertive" v-if="isDefault">默认</span>
@@ -42,7 +42,6 @@
     },
     methods: {
       onItemClick(){
-        this.consignee.selected = true;
         this.$emit('on-select',this.consignee);
       }
     }

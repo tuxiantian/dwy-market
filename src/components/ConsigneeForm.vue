@@ -3,7 +3,7 @@
     <group>
       <x-input title="收货人" :value.sync="formModel.name"></x-input>
       <x-input title="电话" :value.sync="formModel.mobile"></x-input>
-      <address title="省市区" :list="list" :raw-value="true" :value.sync="formModel.address" placeholder="请选择"></address>
+      <address title="省市区" :list="list" :value.sync="formModel.address" placeholder="请选择"></address>
       <x-textarea placeholder="详细地址" :min="2" :value.sync="formModel.detail"></x-textarea>
     </group>
 

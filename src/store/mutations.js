@@ -1,15 +1,18 @@
 import _ from 'lodash'
-import {CONSIGNEE_NORMAL,CONSIGNEE_DEFAULT} from '../const'
+import {
+  CONSIGNEE_NORMAL, CONSIGNEE_DEFAULT
+}
+from '../const'
 
 export const MUTATION_SYNC_CART = 'SYNC_CART';
 export const MUTATION_ADD_CART_ITEM = 'ADD_CART_ITEM';
 export const MUTATION_REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
 export const MUTATION_UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
 
-export const MUTATION_SYNC_CONSIGNEES='SYNC_CONSIGNEES';
-export const MUTATION_ADD_CONSIGNEE='CREATE_CONSIGNEES';
-export const MUTATION_UPDATE_CONSIGNEES='UPDATE_CONSIGNEES';
-export const MUTATION_REMOVE_CONSIGNEES='REMOVE_CONSIGNEES';
+export const MUTATION_SYNC_CONSIGNEES = 'SYNC_CONSIGNEES';
+export const MUTATION_ADD_CONSIGNEE = 'CREATE_CONSIGNEES';
+export const MUTATION_UPDATE_CONSIGNEES = 'UPDATE_CONSIGNEES';
+export const MUTATION_REMOVE_CONSIGNEES = 'REMOVE_CONSIGNEES';
 
 export default {
 
@@ -54,14 +57,14 @@ export default {
    * @param state
    * @param consignees {Array<Consignee>}
    */
-  [MUTATION_SYNC_CONSIGNEES](state,consignees){
+  [MUTATION_SYNC_CONSIGNEES](state, consignees) {
 
-    _.forEach(consignees,item=>{
-      item.active=false;
-      item.selected=false;
+    _.forEach(consignees, item => {
+      item.active = false;
+      item.selected = item.isDefault == CONSIGNEE_DEFAULT;
     });
-
-    state.consignees=consignees;
+    
+    state.consignees = consignees;
   },
 
   /**
@@ -69,15 +72,15 @@ export default {
    * @param state
    * @param consignee {Consignee}
    */
-  [MUTATION_ADD_CONSIGNEE](state,consignee){
-    consignee.active=false;
-    consignee.selected=true;
+  [MUTATION_ADD_CONSIGNEE](state, consignee) {
+    consignee.active = false;
+    consignee.selected = true;
 
     //如果添加的收货人已经设置为默认，其它的收货人取消默认
-    if(consignee.isDefault===CONSIGNEE_DEFAULT){
+    if (consignee.isDefault === CONSIGNEE_DEFAULT) {
 
-      _.forEach(state.consignees,item=>{
-        item.isDefault=CONSIGNEE_NORMAL;
+      _.forEach(state.consignees, item => {
+        item.isDefault = CONSIGNEE_NORMAL;
       });
     }
     state.consignees.push(consignee);
@@ -88,7 +91,7 @@ export default {
    * @param state
    * @param id
    */
-  [MUTATION_REMOVE_CONSIGNEES](state,id){
+  [MUTATION_REMOVE_CONSIGNEES](state, id) {
     let item = _.find(state.consignees, {
       receid: id
     });
@@ -101,11 +104,12 @@ export default {
    * @param id
    * @param consignee {Consignee}
    */
-  [MUTATION_UPDATE_CONSIGNEES](state,id,consignee){
+  [MUTATION_UPDATE_CONSIGNEES](state, id, consignee) {
+
     let item = _.find(state.consignees, {
       receid: id
     });
 
-    _.merge(item,consignee);
+    _.merge(item, consignee);
   }
 }

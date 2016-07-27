@@ -20,6 +20,7 @@
                  show-cancel
                  cancel-text="取消"
                  :menus="menus"
+                 @on-cancel="onActionsheetCancel"
                  @on-click-menu="onMenuItemClick">
 
     </actionsheet>
@@ -46,7 +47,18 @@
         }
       }
     },
-
+    route:{
+      activate(){
+        this.$nextTick(()=>{
+          this.$rerender();
+        });
+      }
+    },
+    ready(){
+      this.$on('remove-consignee-success',()=>{
+        this.$rerender();
+      });
+    },
     methods:{
       openActionsheet(){
         this.showActionsheet=true;
@@ -65,8 +77,7 @@
             this.$toast('setDef');
             break;
           case REMOVE:
-            Consignee.removeById(this.selectedConsignee.id);
-            this.$rerender();
+            this.removeConsigneeById(this.selectedConsignee.receid);
         }
       },
       activeConsigneeItem(consignee){
@@ -75,6 +86,7 @@
         });
       },
       onActionsheetCancel(){
+        debugger;
         this.selectedConsignee.active=false;
       }
     }

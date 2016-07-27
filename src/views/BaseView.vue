@@ -60,7 +60,12 @@
         defaultConsignee(state) {
           return _.find(state.consignees, {
             isDefault: CONSIGNEE_DEFAULT
-          })
+          });
+        },
+        selectedConsignee(state){
+          return _.find(state.consignees, {
+            selected: true
+          });
         }
       }
     },

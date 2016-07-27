@@ -23,6 +23,12 @@
         }
       }
     },
+    ready(){
+      this.$on('create-consignee-success',()=>{
+        this.$toast('添加收货人成功！');
+        this.$goBack();
+      });
+    },
     methods: {
       onSubmit(){
         var model=_.merge({},this.model);
