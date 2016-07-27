@@ -1,5 +1,11 @@
 import _ from 'lodash'
-
+import {
+  URL_CONSIGNEE_CREATE,
+  URL_CONSIGNEE_DEF,
+  URL_CONSIGNEE_LIST,
+  URL_CONSIGNEE_REMOVE,
+  URL_CONSIGNEE_UPDATE
+} from '../api'
 var arr = [];
 for (var i = 0; i < 10; i++) {
   arr.push({
@@ -12,7 +18,7 @@ for (var i = 0; i < 10; i++) {
   });
 }
 
-arr[2].default=true;
+arr[2].default = true;
 
 export default class Consignee {
   constructor() {

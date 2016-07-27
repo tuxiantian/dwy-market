@@ -82,3 +82,9 @@ export const URL_ORDER_REMOVE = '/order'
  * @type {string}
  */
 export const URL_ORDER_CANCEL = '/order'
+
+export const URL_CONSIGNEE_LIST='/receListById.do'
+export const URL_CONSIGNEE_CREATE='/addRecer.do'
+export const URL_CONSIGNEE_REMOVE='/delRecer.do'
+export const URL_CONSIGNEE_UPDATE='/updRecer.do'
+export const URL_CONSIGNEE_DEF='/defRece.do'
