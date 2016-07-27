@@ -1,13 +1,13 @@
-<template lang="html">
 
-
-</template>
-
-<script type="text/javascript">
+<script type="text/ecmascript-6">
 
   import Base from '../Base'
+
   import * as actions from '../store/actions'
-  import {ROUTE_SEARCH} from '../routes'
+
+  import {
+    ROUTE_SEARCH
+  } from '../routes'
 
   import _ from 'lodash'
 
@@ -17,91 +17,93 @@
   import CateItem from '../components/CateItem'
   import OrderItem from '../components/OrderItem'
   import ConsigneeInfoItem from '../components/ConsigneeInfoItem.vue'
-
+  import ConsigneeForm from '../components/ConsigneeForm.vue'
 
   import {
-          EVENT_PULLUP_RESET,
-          EVENT_PULLUP_ENABLE,
-          EVENT_PULLUP_DISABLE
-  }from '../const'
+    EVENT_PULLUP_RESET,
+    EVENT_PULLUP_ENABLE,
+    EVENT_PULLUP_DISABLE,
+    CONSIGNEE_DEFAULT
+  } from '../const'
 
   export default Base.extend({
     computed: {
       uuid() {
         return this.$refs.scroller.uuid;
+      },
+      totalPrice() {
+        return _.reduce(this.selectedCartItems, (num, item) => {
+          return num + item.num * item.price;
+        }, 0);
       }
     },
-    vuex:{
+    vuex: {
       actions,
-      getters:{
-        cartItems:store=>store.cartItems,
-        totalAmount(store){
-          return _.reduce(store.cartItems,(num,item)=>{
-            return num+Number(item.num);
-          },0);
+      getters: {
+        cartItems: state => state.cartItems,
+        totalAmount(state) {
+          return _.reduce(state.cartItems, (num, item)=> {
+            return num + Number(item.num);
+          }, 0);
         },
-        isAllSelected(store){
-          return _.every(store.cartItems,item=>{
+        isAllSelected(state) {
+          return _.every(state.cartItems, item => {
             return item.selected;
           });
         },
-        selectedCartItems(store){
-          return _.filter(store.cartItems,item=>{
+        selectedCartItems(state) {
+          return _.filter(state.cartItems, item => {
             return item.selected;
           });
+        },
+        consignees: state => state.consignees,
+        defaultConsignee(state) {
+          return _.find(state.consignees, {
+            isDefault: CONSIGNEE_DEFAULT
+          })
         }
       }
     },
-
     components: {
       BarHeader,
       ProductItem,
       Panel,
       CateItem,
       OrderItem,
-      ConsigneeInfoItem
+      ConsigneeInfoItem,
+      ConsigneeForm
     },
-    computed:{
-      totalPrice(){
-        return _.reduce(this.selectedCartItems,(num,item)=>{
-          return num+item.num*item.price;
-        },0);
-      }
-    },
-    ready(){
+    ready() {
       this.$rerender();
     },
-
     methods: {
       $toast(option) {
         this.$root._toast(option);
       },
-
       $alert(option) {
         this.$root._alert(option);
       },
-
       $confirm(option) {
         this.$root._confirm(option);
       },
       /**
        * 重新渲染Scroller
-       * @return {Void}
+       * @return {void}
        */
-      $rerender(delay=100) {
-        if(!this.$refs.scroller)return;
-        setTimeout(()=>{
-          this.$refs.scroller.reset();
-        },delay);
-      },
+      $rerender(delay = 100) {
+        if (!this.$refs.scroller) return;
 
+        setTimeout(() => {
+          this.$refs.scroller.reset();
+        }, delay)
+        ;
+      },
       /**
        * 重置上拉插件
        */
       $resetPullup() {
         this.$broadcast(EVENT_PULLUP_RESET, this.uuid);
       },
-
       /**
        * 禁用上拉插件
        * @return {void}
@@ -109,7 +111,6 @@
       $disablePullup() {
         this.$broadcast(EVENT_PULLUP_DISABLE, this.uuid);
       },
-
       /**
        * 启用上拉插件
        * @return {void}
@@ -117,7 +118,6 @@
       $enablePullup() {
         this.$broadcast(EVENT_PULLUP_ENABLE, this.uuid);
       },
-
       /**
        * Scroller滚动到指定高度
        * @param  {Number} top      =             0   高度
@@ -126,19 +126,20 @@
        * @return {void}
        */
       $scrollTop(top = 0, duration = 0, delay = 200) {
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$refs.scroller._xscroll.scrollTop(top, duration);
-        },delay)
+        }, delay);
       },
-      $goBack(){
+      $goBack() {
         window.history.back();
       },
-      onHeaderBarTap(){
-        this.$router.go({name:ROUTE_SEARCH});
+      onHeaderBarTap() {
+        this.$router.go({
+          name: ROUTE_SEARCH
+        });
       }
     }
   })
-
 </script>
 <style lang="scss">
   .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-swiper-desc {

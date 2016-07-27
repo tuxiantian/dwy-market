@@ -14,6 +14,7 @@ import CashInfoView from './views/CashInfoView'
 import FansListView from './views/FansListView'
 import ConsigneeListView from './views/ConsigneeInfoListView';
 import ConsigneeInfoEditView from './views/ConsigneeInfoEditView';
+import ConsigneeCreateView from './views/ConsigneeCreateView.vue';
 
 /**
  * 登录
@@ -211,7 +212,7 @@ export default {
       },
       '/consignees/create': {
         name: ROUTE_CONSIGNEE_CREATE,
-        component: ConsigneeListView
+        component: ConsigneeCreateView
       }
     }
   },

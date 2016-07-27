@@ -3,6 +3,7 @@
     <router-view class="view" keep-alive transition="fade"></router-view>
     <loading :show="showLoading" text="加载中..."></loading>
     <toast :show.sync="toastConfig.show"
+           width="9.6em"
            :type="toastConfig.type">
       {{toastConfig.content}}
     </toast>
@@ -26,7 +27,7 @@
   </div>
 </template>
 
-<script type="text/babel">
+<script>
   import store from './store'
   import Loading from 'vux/src/components/loading'
   import Toast from 'vux/src/components/toast'

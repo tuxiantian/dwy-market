@@ -44,3 +44,15 @@ export const ORDER_STATUS_UNPAY = 1;
 export const ORDER_STATUS_PROCESS = 2;
 export const ORDER_STATUS_DELIVERED = 3;
 export const ORDER_STATUS_FINISHED = 4;
+
+/**
+ * 默认收货人状态
+ * @type {number}
+ */
+export const CONSIGNEE_DEFAULT='1';
+
+/**
+ * 普通收货人
+ * @type {number}
+ */
+export const CONSIGNEE_NORMAL='0';

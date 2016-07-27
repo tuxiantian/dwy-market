@@ -58,6 +58,7 @@ export default BaseView.extend({
   },
   ready(){
     this.syncCartItems(this.$root.UID);
+    this.syncConsignees(this.$root.UID);
   }
 });
 

@@ -2,11 +2,18 @@ import {
   MUTATION_ADD_CART_ITEM,
   MUTATION_REMOVE_CART_ITEM,
   MUTATION_SYNC_CART,
-  MUTATION_UPDATE_CART_ITEM
+  MUTATION_UPDATE_CART_ITEM,
+  MUTATION_ADD_CONSIGNEE,
+  MUTATION_REMOVE_CONSIGNEES,
+  MUTATION_SYNC_CONSIGNEES,
+  MUTATION_UPDATE_CONSIGNEES
 }
 from './mutations'
 import _ from 'lodash'
+
 import ShoppingCart from '../services/ShoppingCart'
+
+import {Consignee,Address} from '../services/Consignee'
 
 /**
  * 同步购物车商品列表
@@ -69,4 +76,46 @@ export function removeCartItem(store, id) {
       store.dispatch(MUTATION_REMOVE_CART_ITEM, id);
       this.$emit(MUTATION_REMOVE_CART_ITEM);
     });
+}
+
+/**
+ * 从服务器同步收货人列表
+ * @param dispatch
+ * @param memberId
+ */
+export function syncConsignees({dispatch}, memberId) {
+
+  Consignee.fetch(memberId)
+    .then(resp=>{
+      dispatch(MUTATION_SYNC_CONSIGNEES,resp.datalist);
+    });
+}
+
+/**
+ * 创建新的收货人，成功后，添加到本地列表
+ * @param dispatch
+ * @param memberId
+ * @param address
+ * @param name
+ * @param mobile
+ * @param detail
+ */
+export function createConsignee({dispatch},memberId,{address,name,mobile,detail}) {
+
+  const [province,city,area]=address;
+
+  address=new Address(province,city,area,detail);
+
+  let consignee=new Consignee(name,mobile,address);
+  
+  consignee.save(memberId)
+    .then(resp=>{
+
+      dispatch(MUTATION_ADD_CONSIGNEE,resp.datalist);
+      this.$toast('添加联系人成功！');
+    });
+}
+
+export function getConsigneeById({state},id) {
+  return _.find(state.consignees,{receid:id});
 }

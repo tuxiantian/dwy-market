@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import Vue from 'vue'
+import Product from './Product'
 import {
   URL_CONSIGNEE_CREATE,
   URL_CONSIGNEE_DEF,
@@ -6,56 +8,117 @@ import {
   URL_CONSIGNEE_REMOVE,
   URL_CONSIGNEE_UPDATE
 } from '../api'
-var arr = [];
-for (var i = 0; i < 10; i++) {
-  arr.push({
-    id: i * 1000 + 1,
-    name: '洪培吉',
-    address: '浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
-    addr: ['130000', '130300', '130302'],
-    phone: 13856232145 + '',
-    active: false,
-    selected: false
-  });
+
+import {
+  CONSIGNEE_DEFAULT,
+  CONSIGNEE_NORMAL
+} from '../const'
+
+class Address {
+  /**
+   * create an address instance
+   * @param province {String}
+   * @param city {String}
+   * @param area {String}
+   * @param detail {String}
+   */
+  constructor(province, city, area, detail) {
+    this.province = province;
+    this.city = city;
+    this.area = area;
+    this.detail = detail;
+  }
 }
 
-arr[2].default = true;
 
-export default class Consignee {
-  constructor() {
+export default class Consignee extends Product {
 
-  }
+  /**
+   * create a consignee instance
+   * @param name {String}
+   * @param mobile {String}
+   * @param address {Address}
+   * @param [isDefault=0] {Number}
+   */
+  constructor(name, mobile, address, isDefault = CONSIGNEE_DEFAULT) {
+    super();
 
-  static create() {
-
-  }
-
-  static updateById() {
-
-  }
-
-  static removeById(id) {
-    var item = _.find(arr, {
-      id: id
-    });
-    arr.$remove(item);
+    this.name = name;
+    this.mobile = mobile;
+    this.isDef = isDefault;
+    _.merge(this, address);
   }
 
   /**
-   * TODO:get consignee list
+   * save consignee
+   * @param memberId {String|Number}
+   * @returns {Promise}
+   */
+  save(memberId) {
+    return Consignee.create(this, memberId);
+  }
+
+  /**
+   * update consignee
+   * @param id {Number|String}
+   * @param memberId {Number|String}
+   * @returns {Promise}
+   */
+  update(id, memberId) {
+    return Consignee.updateById(id, memberId, this);
+  }
+
+  /**
+   * create a consignee
+   * @param consignee {Consignee}
+   * @param memberId {String|Number}
+   * @returns {Promise}
+   */
+  static create(consignee, memberId) {
+    consignee.memid = memberId;
+    return this._sendRequest(URL_CONSIGNEE_CREATE, Object.assign({},consignee));
+  }
+
+  /**
+   * update a consignee
+   * @param id {String|Number}
+   * @param memberId {String|Number}
+   * @param consignee {Consignee}
+   * @returns {Promise}
+   */
+  static updateById(id, memberId, consignee) {
+    consignee.receid = id;
+    consignee.memid = memberId;
+
+    return this._sendRequest(URL_CONSIGNEE_UPDATE, consignee);
+  }
+
+  /**
+   * remove a consignee
+   * @param id {Number|String}
+   * @returns {Promise}
+   */
+  static removeById(id) {
+    return this._sendRequest(URL_CONSIGNEE_REMOVE, {receid: id});
+  }
+
+  /**
    * 获取收货人列表
    * @static
    * @returns {Array}
    */
-  static fetch() {
-
-    return arr;
+  static fetch(memberId) {
+    return this._sendRequest(URL_CONSIGNEE_LIST, {memid: memberId});
   }
 
-  static getById(id) {
-
-    return _.find(arr, {
-      id: Number(id)
-    });
+  /**
+   * get the default consignee
+   * @param memberId
+   * @returns {Promise}
+   */
+  static getDefault(memberId) {
+    return this._sendRequest(URL_CONSIGNEE_DEF, {memid: memberId});
   }
 }
+
+export {Address, Consignee};

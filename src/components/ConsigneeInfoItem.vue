@@ -4,15 +4,15 @@
       <input type="radio" name="consignee" v-model="consignee.selected">
     </label>
     <h3 class="font-size-large">收货人：{{consignee.name}}
-      <span class="badge badge-assertive" v-if="consignee.default">默认</span>
+      <span class="badge badge-assertive" v-if="isDefault">默认</span>
     </h3>
-    <p class="margin-top item-desc" v-text="consignee.address"></p>
+    <p class="margin-top item-desc" v-text="address"></p>
 
-    <button class="button button-small button-icon font-size-secondary" v-text="consignee.phone"></button>
+    <button class="button button-small button-icon font-size-secondary" v-text="consignee.mobile"></button>
   </div>
 </template>
-<script type="text/babel">
-
+<script>
+  import {CONSIGNEE_DEFAULT} from '../const'
   export default {
     data(){
       return {
@@ -29,6 +29,15 @@
       showRadio: {
         type: Boolean,
         default: false
+      }
+    },
+    computed:{
+      address(){
+        let consignee=this.consignee;
+        return `${consignee.province}${consignee.city}${consignee.area}${consignee.detail}`;
+      },
+      isDefault(){
+        return this.consignee.isDefault==CONSIGNEE_DEFAULT;
       }
     },
     methods: {

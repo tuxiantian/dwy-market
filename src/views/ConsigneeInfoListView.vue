@@ -1,7 +1,7 @@
 <template>
   <div>
     <bar-header title="收货人管理">
-      <button class="button button-assertive" slot="right">添加收货人</button>
+      <button class="button button-assertive" slot="right" v-link="{name:'consigneeCreate'}">添加收货人</button>
     </bar-header>
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
@@ -27,7 +27,7 @@
 </template>
 <script>
   import BaseView from './BaseView'
-  import Consignee from '../services/Consignee';
+  import {Consignee,Address} from '../services/Consignee';
   import {ROUTE_CONSIGNEE_EDIT} from '../routes'
   const EDIT='edit';
   const SET_DEF='setDef';
@@ -37,7 +37,6 @@
     data(){
       return {
         selectedConsignee:null,
-        consignees:[],
         showActionsheet:false,
         routeConsigneeEdit:ROUTE_CONSIGNEE_EDIT,
         menus:{
@@ -47,9 +46,7 @@
         }
       }
     },
-    ready(){
-      this.consignees=Consignee.fetch();
-    },
+
     methods:{
       openActionsheet(){
         this.showActionsheet=true;
@@ -62,7 +59,7 @@
       onMenuItemClick(key){
         switch (key){
           case EDIT:
-            this.$router.go({name:ROUTE_CONSIGNEE_EDIT,params:{id:this.selectedConsignee.id}});
+            this.$router.go({name:ROUTE_CONSIGNEE_EDIT,params:{id:this.selectedConsignee.receid}});
             break;
           case SET_DEF:
             this.$toast('setDef');
@@ -76,6 +73,9 @@
         this.consignees.forEach(function (item) {
           item.active=consignee===item;
         });
+      },
+      onActionsheetCancel(){
+        this.selectedConsignee.active=false;
       }
     }
   })
