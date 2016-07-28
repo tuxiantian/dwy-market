@@ -34,7 +34,7 @@
   import Alert from 'vux/src/components/alert'
   import Confirm from 'vux/src/components/confirm'
   import Vue from 'vue'
-  import _ from 'lodash'
+  import {isString,isObject} from 'lodash'
   import {
     API_SERVER,
     API_PATH,
@@ -105,12 +105,12 @@
       },
       handleParam(defaults, option){
 
-        if (_.isString(option)) {
+        if (isString(option)) {
           var content = option;
-          option = _.merge({}, defaults);
+          option = Object.assign({}, defaults);
           option.content = content;
-        } else if (_.isObject(option)) {
-          option = _.merge({}, defaults, option);
+        } else if (isObject(option)) {
+          option = Object.assign({}, defaults, option);
         }
         return option;
       }

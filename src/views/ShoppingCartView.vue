@@ -39,7 +39,6 @@
 
 <script>
 import BaseView from './BaseView'
-import _ from 'lodash'
 import {MODE_PRODUCT_CART} from '../const'
 export default BaseView.extend({
   data: function () {
@@ -61,11 +60,11 @@ export default BaseView.extend({
     },
     toggleAll(){
       if (this.isAllSelected) {
-        _.forEach(this.cartItems, item=> {
+        this.cartItems.forEach(item=> {
           item.selected = false
         });
       } else {
-        _.forEach(this.cartItems, item=> {
+        this.cartItems.forEach(item=> {
           item.selected = true
         });
       }

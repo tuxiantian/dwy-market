@@ -10,7 +10,7 @@
   import BaseView from './BaseView.vue'
   import {Consignee,Address} from '../services/Consignee'
   import regions from 'vux/src/components/address/list.json'
-  import _ from 'lodash'
+  import {find} from 'lodash'
 
   export default BaseView.extend({
     data(){
@@ -31,10 +31,10 @@
     },
     methods: {
       onSubmit(){
-        var model=_.merge({},this.model);
+        var model=Object.assign({},this.model);
 
-        model.address=_.map(model.address,id=>{
-          var region=_.find(regions,{value:id});
+        model.address=model.address.map(id=>{
+          var region=find(regions,{value:id});
           return region?region.name:'';
         });
 

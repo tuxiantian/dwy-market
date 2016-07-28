@@ -26,10 +26,8 @@
       </scroller>
     </div>
     <footer class="bar bar-footer">
-      <i class="icon icon-shopping-cart" @click"goShoppingCart"></i>
-      <span class="badge badge-assertive"
-        v-text="totalAmount"
-        @click="goShoppingCart"></span>
+      <i class="icon icon-shopping-cart" @click="goShoppingCart"></i>
+      <span class="badge badge-assertive" v-text="totalAmount" @click="goShoppingCart"></span>
       <h1 class="title" v-text="product.price|price"></h1>
       <button type="button"
         @click="insertOrUpdate({productId:product.id,uid:$root.UID})"
@@ -41,7 +39,6 @@
 <script>
 import BaseView from './BaseView'
 import Product from '../services/Product'
-import _ from 'lodash'
 import p2 from '../assets/p2.jpg'
 import p1 from '../assets/p1.jpg'
 
@@ -76,7 +73,7 @@ export default BaseView.extend({
     getProductDetail(){
       Product.getById(this.productId)
         .then(resp=>{
-          _.forEach(resp.datalist.imgurls,item=>{
+          resp.datalist.imgurls.forEach(item=>{
             item.img=item.imgurl;
           });
 

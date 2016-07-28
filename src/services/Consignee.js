@@ -1,4 +1,4 @@
-import _ from 'lodash'
+
 import Vue from 'vue'
 import Product from './Product'
 import {
@@ -49,7 +49,7 @@ export default class Consignee extends Product {
     this.name = name;
     this.mobile = mobile;
     this.isDef = isDefault;
-    _.merge(this, address);
+    Object.assign(this, address);
   }
 
   /**

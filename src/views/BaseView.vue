@@ -9,7 +9,7 @@
     ROUTE_SEARCH
   } from '../routes'
 
-  import _ from 'lodash'
+  import {reduce,filter,find,every} from 'lodash'
 
   import BarHeader from '../components/BarHeader'
   import ProductItem from '../components/ProductItem'
@@ -32,7 +32,7 @@
         return this.$refs.scroller.uuid;
       },
       totalPrice() {
-        return _.reduce(this.selectedCartItems, (num, item) => {
+        return reduce(this.selectedCartItems, (num, item) => {
           return num + item.num * item.price;
         }, 0);
       }
@@ -42,28 +42,28 @@
       getters: {
         cartItems: state => state.cartItems,
         totalAmount(state) {
-          return _.reduce(state.cartItems, (num, item)=> {
+          return reduce(state.cartItems, (num, item)=> {
             return num + Number(item.num);
           }, 0);
         },
         isAllSelected(state) {
-          return _.every(state.cartItems, item => {
+          return every(state.cartItems, item => {
             return item.selected;
           });
         },
         selectedCartItems(state) {
-          return _.filter(state.cartItems, item => {
+          return filter(state.cartItems, item => {
             return item.selected;
           });
         },
         consignees: state => state.consignees,
         defaultConsignee(state) {
-          return _.find(state.consignees, {
+          return find(state.consignees, {
             isDefault: CONSIGNEE_DEFAULT
           });
         },
         selectedConsignee(state){
-          return _.find(state.consignees, {
+          return find(state.consignees, {
             selected: true
           });
         }

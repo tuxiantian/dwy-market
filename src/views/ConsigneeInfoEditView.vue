@@ -10,7 +10,7 @@
   import BaseView from './BaseView.vue'
   import Consignee from '../services/Consignee'
   import regions from 'vux/src/components/address/list.json'
-  import _ from 'lodash'
+  import {find} from 'lodash'
 
   export default BaseView.extend({
     data(){
@@ -24,8 +24,8 @@
       data(transition){
         let consignee=this.getConsigneeById(this.$route.params.id);
 
-        consignee.address=_.map([consignee.province,consignee.city,consignee.area],name=>{
-          return _.find(regions,{name}).value;
+        consignee.address=[consignee.province,consignee.city,consignee.area].map(name=>{
+          return find(regions,{name}).value;
         });
         transition.next({consignee:consignee});
       }
@@ -40,8 +40,8 @@
       onSubmit(){
         var model=Object.assign({},this.consignee);
 
-        model.address=_.map(model.address,id=>{
-          var region=_.find(regions,{value:id});
+        model.address=model.address.map(id=>{
+          var region=find(regions,{value:id});
           return region?region.name:'';
         });
 
