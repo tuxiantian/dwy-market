@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import {find} from 'lodash'
 import {
   CONSIGNEE_NORMAL, CONSIGNEE_DEFAULT
 }
@@ -13,6 +13,7 @@ export const MUTATION_SYNC_CONSIGNEES = 'SYNC_CONSIGNEES';
 export const MUTATION_ADD_CONSIGNEE = 'CREATE_CONSIGNEES';
 export const MUTATION_UPDATE_CONSIGNEES = 'UPDATE_CONSIGNEES';
 export const MUTATION_REMOVE_CONSIGNEES = 'REMOVE_CONSIGNEES';
+export const MUTATION_SET_DEFAULT_CONSIGNEES = 'SET_DEFAULT_CONSIGNEES';
 
 export default {
 
@@ -31,7 +32,7 @@ export default {
    * @param id
    */
   [MUTATION_REMOVE_CART_ITEM](state, id) {
-    let item = _.find(state.cartItems, {
+    let item = find(state.cartItems, {
       cartid: id
     });
     state.cartItems.$remove(item);
@@ -43,7 +44,7 @@ export default {
    * @param cartItems {Array}
    */
   [MUTATION_SYNC_CART](state, cartItems) {
-    _.forEach(cartItems, item => {
+    cartItems.forEach(item => {
       item.num = Number(item.num);
       item.price = Number(item.price);
       item.selected = true;
@@ -59,11 +60,11 @@ export default {
    */
   [MUTATION_SYNC_CONSIGNEES](state, consignees) {
 
-    _.forEach(consignees, item => {
+    consignees.forEach( item => {
       item.active = false;
       item.selected = item.isDefault == CONSIGNEE_DEFAULT;
     });
-    
+
     state.consignees = consignees;
   },
 
@@ -79,7 +80,7 @@ export default {
     //如果添加的收货人已经设置为默认，其它的收货人取消默认
     if (consignee.isDefault === CONSIGNEE_DEFAULT) {
 
-      _.forEach(state.consignees, item => {
+      state.consignees.forEach( item => {
         item.isDefault = CONSIGNEE_NORMAL;
       });
     }
@@ -92,7 +93,7 @@ export default {
    * @param id
    */
   [MUTATION_REMOVE_CONSIGNEES](state, id) {
-    let item = _.find(state.consignees, {
+    let item = find(state.consignees, {
       receid: id
     });
     state.consignees.$remove(item);
@@ -106,10 +107,17 @@ export default {
    */
   [MUTATION_UPDATE_CONSIGNEES](state, id, consignee) {
 
-    let item = _.find(state.consignees, {
+    let item = find(state.consignees, {
       receid: id
     });
 
-    _.merge(item, consignee);
+    Object.assign(item, consignee);
+  },
+
+  [MUTATION_SET_DEFAULT_CONSIGNEES](state,id){
+    state.consignees.forEach(item=>{
+      item.isDefault=item.receid===id?CONSIGNEE_DEFAULT:CONSIGNEE_NORMAL;
+      item.selected=item.receid===id;
+    });
   }
 }

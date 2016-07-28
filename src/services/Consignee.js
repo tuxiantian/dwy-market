@@ -3,7 +3,8 @@ import Vue from 'vue'
 import Product from './Product'
 import {
   URL_CONSIGNEE_CREATE,
-  URL_CONSIGNEE_DEF,
+  URL_CONSIGNEE_DEF_GET,
+  URL_CONSIGNEE_DEF_SET,
   URL_CONSIGNEE_LIST,
   URL_CONSIGNEE_REMOVE,
   URL_CONSIGNEE_UPDATE
@@ -127,9 +128,17 @@ export default class Consignee extends Product {
    * @returns {Promise}
    */
   static getDefault(memberId) {
-    return this._sendRequest(URL_CONSIGNEE_DEF, {
+    return this._sendRequest(URL_CONSIGNEE_DEF_GET, {
       memid: memberId
     });
+  }
+
+  static setDefault(id,memberId){
+
+    return this._sendRequest(
+      URL_CONSIGNEE_DEF_SET,
+      {receid:id,isDef:CONSIGNEE_DEFAULT}
+    );
   }
 }
 

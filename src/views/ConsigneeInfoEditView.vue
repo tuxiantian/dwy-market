@@ -1,12 +1,12 @@
 <template>
   <div class="view">
     <bar-header title="收货人编辑"></bar-header>
-    <div class="scroll-content overflow-scroll has-header">
+    <div class="scroll-content has-header">
       <consignee-form @on-submit="onSubmit" :form-model="consignee"></consignee-form>
     </div>
   </div>
 </template>
-<script type="text/babel">
+<script>
   import BaseView from './BaseView.vue'
   import Consignee from '../services/Consignee'
   import regions from 'vux/src/components/address/list.json'

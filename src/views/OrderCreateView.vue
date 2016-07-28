@@ -8,9 +8,19 @@
       <div>
         <div class="font-size-small assertive padding"> 为响应国家包裹实名制要求，请填写
           <strong class="font-size">真实姓名</strong>，否则可能无法送货 </div>
-        <consignee-info-item :consignee="consignee" @click="showPopup=true"></consignee-info-item>
+        <consignee-info-item :consignee="consignee"
+          v-if="consignee"
+         @click="showPopup=true"></consignee-info-item>
+
+        <group v-if="!consignee">
+          <cell title="还没有收货人，点击添加" :is-link="true"
+
+          v-link="{name:'consigneeCreate'}"></cell>
+        </group>
+
         <group title="商品信息">
-          <product-item :mode="3" v-for="item of selectedCartItems" :product="item"></product-item>
+          <product-item :mode="3" v-for="item of selectedCartItems"
+          :product="item"></product-item>
           <cell title="运费">
             <span slot="after-title" class="font-size-small">(包邮)</span> {{freight|price}} </cell>
           <cell title="税费">
@@ -21,29 +31,31 @@
           </cell>
           <x-textarea placeholder="请输入订单备注信息"></x-textarea>
         </group>
-        <group title="支付方式">
+        <!-- <group title="支付方式">
           <radio :options="payTypes" :value.sync="payType"></radio>
-        </group>
+        </group> -->
       </div>
     </div>
     <div class="bar bar-footer">
       <h4 class="title">实付：
         <span class="assertive">{{realPay|price}}</span>
       </h4>
-      <button class="button button-assertive">提交订单</button>
+      <button class="button button-assertive" @click="onOrderButtonClick">提交订单</button>
     </div>
     <popup :show.sync="showPopup" height="100%">
-      <div class="bar bar-header">
+      <div class="bar bar-header bar-dark">
         <button class="button button-icon back-button" @click.stop="showPopup=false">
             <i class="icon icon-angle-left"></i>
         </button>
         <h3 class="title">选择收货人</h3>
+        <button class="button" v-link="{name:'consigneeCreate'}"
+          @click="showPopup=false">添加收货人</button>
       </div>
       <div class="scroll-content has-header">
         <scroller :lock-x="true" height="100%" v-ref:scroll>
           <div class="">
             <consignee-info-item :consignee="item"
-              v-for="item of consignees"
+              v-for="item of consignees | orderBy 'receid' -1"
               @on-select="onSelect"
               :show-radio="true">
             </consignee-info-item>
@@ -55,6 +67,7 @@
 </template>
 <script>
   import BaseView from './BaseView.vue'
+  import Order,{OrderProductItem} from  '../services/Order'
   export default BaseView.extend({
     data() {
       return {
@@ -69,6 +82,14 @@
     route:{
       activate(){
         this.consignee=this.selectedConsignee;
+      },
+      data(transition){
+
+        if(this.selectedCartItems.length===0){
+          return location.replace('/');
+        }
+
+        transition.next();
       }
     },
     watch:{
@@ -102,6 +123,15 @@
 
         this.consignee=item;
         this.showPopup=false;
+      },
+      onOrderButtonClick(){
+        let orderProductItems=this.selectedCartItems.map(item=>{
+          return new OrderProductItem(item.id,item.num);
+        });
+
+        let order=new Order(this.$root.UID,this.selectedConsignee.receid,'',orderProductItems);
+
+        order.save()
       }
     }
   });

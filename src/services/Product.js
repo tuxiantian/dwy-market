@@ -10,12 +10,19 @@ export default class Product {
   constructor() {
 
   }
+
+  /**
+   * 发送请求
+   * @param  {String} url    请求地址
+   * @param  {Object} params 请求参数
+   * @return {Promise}        
+   */
   static _sendRequest(url, params) {
     return new Promise(function(resolve, reject) {
       Vue.http.post(url, params)
         .then(resp => {
           var data = resp.data;
-  
+
           if (data.respCode == 0) {
             return reject(resp);
           }

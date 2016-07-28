@@ -6,9 +6,8 @@
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div>
-          <consignee-info-item v-for="item of consignees"
+          <consignee-info-item v-for="item of consignees | orderBy 'receid' -1"
                                :class="{active:item.active}"
-
                                v-touch:press="onConsigneeItemHold(item)"
                                :consignee="item">
 
@@ -20,7 +19,6 @@
                  show-cancel
                  cancel-text="取消"
                  :menus="menus"
-                 @on-cancel="onActionsheetCancel"
                  @on-click-menu="onMenuItemClick">
 
     </actionsheet>
@@ -30,6 +28,8 @@
   import BaseView from './BaseView'
   import {Consignee,Address} from '../services/Consignee';
   import {ROUTE_CONSIGNEE_EDIT} from '../routes'
+  import {CONSIGNEE_DEFAULT} from '../const'
+
   const EDIT='edit';
   const SET_DEF='setDef';
   const REMOVE='remove';
@@ -37,7 +37,7 @@
   export default BaseView.extend({
     data(){
       return {
-        selectedConsignee:null,
+        currentConsignee:null,
         showActionsheet:false,
         routeConsigneeEdit:ROUTE_CONSIGNEE_EDIT,
         menus:{
@@ -64,20 +64,26 @@
         this.showActionsheet=true;
       },
       onConsigneeItemHold(item){
-        this.selectedConsignee=item;
+        this.currentConsignee=item;
         this.activeConsigneeItem(item);
         this.openActionsheet();
       },
       onMenuItemClick(key){
         switch (key){
           case EDIT:
-            this.$router.go({name:ROUTE_CONSIGNEE_EDIT,params:{id:this.selectedConsignee.receid}});
+            this.$router.go({name:ROUTE_CONSIGNEE_EDIT,params:{id:this.currentConsignee.receid}});
             break;
           case SET_DEF:
-            this.$toast('setDef');
+            this.setDefaultConsignee(this.currentConsignee.receid,this.$root.UID);
             break;
           case REMOVE:
-            this.removeConsigneeById(this.selectedConsignee.receid);
+            if(this.currentConsignee.isDefault===CONSIGNEE_DEFAULT){
+              return this.$alert('默认收货人不允许删！删除之前请先设置其它默认收货人。');
+            }
+            this.removeConsigneeById(this.currentConsignee.receid);
+            break;
+          default:
+            this.onActionsheetCancel();
         }
       },
       activeConsigneeItem(consignee){
@@ -86,8 +92,7 @@
         });
       },
       onActionsheetCancel(){
-        debugger;
-        this.selectedConsignee.active=false;
+        this.currentConsignee.active=false;
       }
     }
   })

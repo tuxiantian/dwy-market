@@ -26,10 +26,13 @@
       </scroller>
     </div>
     <footer class="bar bar-footer">
-      <i class="icon icon-shopping-cart"></i>
-      <span class="badge badge-assertive" v-text="totalAmount"></span>
+      <i class="icon icon-shopping-cart" @click"goShoppingCart"></i>
+      <span class="badge badge-assertive"
+        v-text="totalAmount"
+        @click="goShoppingCart"></span>
       <h1 class="title" v-text="product.price|price"></h1>
-      <button type="button" @click="insertOrUpdate({productId:product.id,uid:$root.UID})"
+      <button type="button"
+        @click="insertOrUpdate({productId:product.id,uid:$root.UID})"
               class="button button-assertive">加入购物车</button>
     </footer>
   </div>
@@ -81,6 +84,12 @@ export default BaseView.extend({
           this.$rerender();
           this.$scrollTop();
         });
+    },
+    goShoppingCart(){
+      this.$router.go({
+        name:'shoppingCart',
+        replace:true
+      })
     }
   },
   components: {}

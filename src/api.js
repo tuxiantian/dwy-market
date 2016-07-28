@@ -57,7 +57,7 @@ export const URL_SHOPPING_CART_LIST = '/cartGoodsList.do'
  * 创建订单
  * @type {string}
  */
-export const URL_ORDER_CREATE = '/order'
+export const URL_ORDER_CREATE = '/addOrder.do'
 
 /**
  * 订单列表
@@ -83,8 +83,38 @@ export const URL_ORDER_REMOVE = '/order'
  */
 export const URL_ORDER_CANCEL = '/order'
 
+/**
+ * 查询收货人列表
+ * @type {String}
+ */
 export const URL_CONSIGNEE_LIST='/receListById.do'
+
+/**
+ * 添加收货人
+ * @type {String}
+ */
 export const URL_CONSIGNEE_CREATE='/addRecer.do'
+
+/**
+ * 删除收货人
+ * @type {String}
+ */
 export const URL_CONSIGNEE_REMOVE='/delRecer.do'
+
+/**
+ * 更新收货人
+ * @type {String}
+ */
 export const URL_CONSIGNEE_UPDATE='/updRecer.do'
-export const URL_CONSIGNEE_DEF='/defRece.do'
+
+/**
+ * 获取默认收货人
+ * @type {String}
+ */
+export const URL_CONSIGNEE_DEF_GET='/defRece.do'
+
+/**
+ * 设置默认收货人
+ * @type {String}
+ */
+export const URL_CONSIGNEE_DEF_SET='/updRecerStatus.do'
