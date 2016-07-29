@@ -16,8 +16,13 @@
         </div>
       </div>
       <div class="footer-item text-right flex ver-center right">
-        <button type="button" class="button button-small">取消订单</button>
-        <button type="button" class="button button-small button-dark margin-left">
+        <button type="button"
+        @click.stop="eventEmit('on-cancel')"
+        class="button button-small">取消订单</button>
+
+        <button type="button"
+        @click.stop="eventEmit('on-pay')"
+        class="button button-small button-assertive margin-left">
           <strong>去付款</strong>
         </button>
       </div>
@@ -26,15 +31,27 @@
 </template>
 
 <script>
-import p2 from '../assets/p2.jpg'
+
 import ProductItem from './ProductItem'
 export default {
   data: function () {
     return {
-      p2:p2
+
     }
   },
-  methods: {},
+  props:{
+    order:{
+      type:Object,
+      default(){
+        return {};
+      }
+    }
+  },
+  methods: {
+    eventEmit(name){
+      this.$emit(name,this.order);
+    }
+  },
   components: {
     ProductItem
   }
@@ -44,6 +61,7 @@ export default {
 <style lang="scss">
 @import "../scss/variables.scss";
 @import "../scss/mixins";
+
 $order-item-header-height:40px;
 $order-item-footer-height:40px;
 

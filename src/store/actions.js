@@ -7,10 +7,12 @@ import {
 	MUTATION_REMOVE_CONSIGNEES,
 	MUTATION_SYNC_CONSIGNEES,
 	MUTATION_UPDATE_CONSIGNEES,
-  MUTATION_SET_DEFAULT_CONSIGNEES
+	MUTATION_SET_DEFAULT_CONSIGNEES
 }
 from './mutations'
-import {find} from 'lodash'
+import {
+	find
+} from 'lodash'
 import ShoppingCart from '../services/ShoppingCart'
 import {
 	Consignee,
@@ -134,7 +136,6 @@ export function removeConsigneeById({
 		this.$emit('remove-consignee-success');
 	});
 }
-
 /**
  * 更新收货人信息
  * @param  {function}  {  dispatch}
@@ -165,11 +166,11 @@ export function updateConsignee({
 		this.$emit('update-consignee-success');
 	});
 }
-
-
-export function setDefaultConsignee({dispatch,state},id,memberId){
-  Consignee.setDefault(id,memberId)
-    .then(()=>{
-      dispatch(MUTATION_SET_DEFAULT_CONSIGNEES,id);
-    });
+export function setDefaultConsignee({
+	dispatch,
+	state
+}, id, memberId) {
+	Consignee.setDefault(id, memberId).then(() => {
+		dispatch(MUTATION_SET_DEFAULT_CONSIGNEES, id);
+	});
 }

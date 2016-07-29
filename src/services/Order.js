@@ -13,7 +13,7 @@ export class OrderProductItem{
 
   /**
    * create an order product instance
-   * @param  {String} productId
+   * @param  {String} productId,
    * @param  {Number} amount    product amount
    * @return {OrderProductItem}
    */
@@ -58,19 +58,19 @@ export default class Order extends Product {
     return this._sendRequest(URL_ORDER_CREATE,Object.assign({},order));
   }
 
-  static fetch(){
-    return this._sendRequest(URL_ORDER_LIST);
+  static fetchByStatus(status){
+    return this._sendRequest(URL_ORDER_LIST,{status:status});
   }
 
   static getById(orderId){
-
+    return this._sendRequest(URL_ORDER_DETAIL,{id:orderId});
   }
 
   static removeById(orderId){
-
+    return this._sendRequest(URL_ORDER_REMOVE,{id:orderId});
   }
 
   static cancelById(orderId){
-
+    return this._sendRequest(URL_ORDER_CANCEL,{id:orderId})
   }
 }

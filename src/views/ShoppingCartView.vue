@@ -61,11 +61,11 @@ export default BaseView.extend({
     toggleAll(){
       if (this.isAllSelected) {
         this.cartItems.forEach(item=> {
-          item.selected = false
+          item.selected = false;
         });
       } else {
         this.cartItems.forEach(item=> {
-          item.selected = true
+          item.selected = true;
         });
       }
     }

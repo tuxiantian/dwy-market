@@ -83,16 +83,13 @@
             this.removeConsigneeById(this.currentConsignee.receid);
             break;
           default:
-            this.onActionsheetCancel();
+            this.currentConsignee.active=false;
         }
       },
       activeConsigneeItem(consignee){
         this.consignees.forEach(function (item) {
           item.active=consignee===item;
         });
-      },
-      onActionsheetCancel(){
-        this.currentConsignee.active=false;
       }
     }
   })

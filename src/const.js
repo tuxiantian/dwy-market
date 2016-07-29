@@ -39,10 +39,34 @@ export const MODE_PRODUCT_CART = 2;
  */
 export const MODE_PRODUCT_ORDER = 3;
 
+/**
+ * 订单状态，全部
+ * @type {String}
+ */
 export const ORDER_STATUS_ALL = 0;
+
+/**
+ * 订单状态：未支付
+ * @type {Number}
+ */
 export const ORDER_STATUS_UNPAY = 1;
+
+/**
+ * 订单状态：处理中
+ * @type {Number}
+ */
 export const ORDER_STATUS_PROCESS = 2;
+
+/**
+ * 订单状态：已发货
+ * @type {Number}
+ */
 export const ORDER_STATUS_DELIVERED = 3;
+
+/**
+ * 订单状态：已完成
+ * @type {Number}
+ */
 export const ORDER_STATUS_FINISHED = 4;
 
 /**

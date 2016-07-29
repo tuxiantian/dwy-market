@@ -39,18 +39,13 @@
 <script>
 import BaseView from './BaseView'
 import Product from '../services/Product'
-import p2 from '../assets/p2.jpg'
-import p1 from '../assets/p1.jpg'
+import { ROUTE_SHOPPING_CART } from '../routes';
 
 export default BaseView.extend({
   data: function () {
     return {
       productId:null,
-      product:{},
-      slides:[
-        {img:p1},
-        {img:p2}
-      ]
+      product:{}
     }
   },
   route:{
@@ -66,6 +61,7 @@ export default BaseView.extend({
   watch:{
     productId(val){
       if(!val)return;
+      this.product={};
       this.getProductDetail();
     }
   },
@@ -84,7 +80,7 @@ export default BaseView.extend({
     },
     goShoppingCart(){
       this.$router.go({
-        name:'shoppingCart',
+        name:ROUTE_SHOPPING_CART,
         replace:true
       })
     }

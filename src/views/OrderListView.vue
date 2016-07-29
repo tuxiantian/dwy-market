@@ -8,14 +8,12 @@
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="padding-vertical">
-          <order-item v-link="{name:'orderDetail',params:{id:00211}}"></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
-          <order-item></order-item>
+          <order-item
+            v-for="item of orders"
+            v-link="{name:'orderDetail',params:{id:item.id}}">
+
+          </order-item>
+          <order-item @on-cancel="cancelOrder" @on-pay="pay" v-link="{name:'orderDetail',params:{id:1000}}"></order-item>
         </div>
       </scroller>
     </div>
@@ -31,24 +29,46 @@ import {
   ORDER_STATUS_DELIVERED,
   ORDER_STATUS_FINISHED
 } from '../const'
+
+import Order, { OrderProductItem } from '../services/Order';
+
 export default BaseView.extend({
   data: function () {
     return {
-      status:ORDER_STATUS_ALL,
+      status:null,
       tabList:[
         {status:ORDER_STATUS_ALL,text:'全部'},
         {status:ORDER_STATUS_UNPAY,text:'未付款'},
         {status:ORDER_STATUS_PROCESS,text:'处理中'},
         {status:ORDER_STATUS_DELIVERED,text:'已发货'},
         {status:ORDER_STATUS_FINISHED,text:'已完成'}
-      ]
+      ],
+      orders:[]
     }
   },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {}
+  ready(){
+    this.status=ORDER_STATUS_ALL;
+  },
+  watch:{
+    status(){
+      this.fetchOrders();
+    }
+  },
+  methods:{
+    fetchOrders(){
+      Order.fetchByStatus(this.status)
+        .then(resp=>{
+          this.orders=resp.datalist;
+        });
+    },
+    cancelOrder(){
+      Order.cancelById(111);
+      this.$toast('cancel order');
+    },
+    pay(){
+      this.$toast('pay order');
+    }
+  }
 });
 </script>
 

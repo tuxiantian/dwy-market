@@ -18,17 +18,16 @@
                 浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605
               </p>
             </div>
+            <div class="padding text-right">
+              <button type="button"  class="button">取消订单</button>
+              <button type="button"  class="button button-assertive margin-left">
+                <strong>去付款</strong>
+              </button>
+            </div>
           </group>
 
           <group title="商品信息" class="margin-bottom">
-            <div class="item item-thumbnail-left">
-              <img src="../assets/p1.jpg" alt="" />
-              <h3>日本进口充气娃娃</h3>
-              <p class="assertive">￥750.00</p>
-              <p>
-                x2
-              </p>
-            </div>
+            <product-item :mode="3"></product-item>
             <div class="item">
               <div class="dark">共1件商品 运费：￥0.00 优惠：￥0.00</div>
               <div class="dark text-right">
@@ -52,7 +51,7 @@ export default BaseView.extend({
       consignee:{
         name:'洪培吉',
         address:'浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
-        phone:13856232145
+        mobile:13856232145
       }
     }
   },
