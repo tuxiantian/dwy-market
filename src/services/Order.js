@@ -19,7 +19,7 @@ export class OrderProductItem{
    */
   constructor(productId,amount){
     this.goodsid=productId;
-    this.num=amount;
+    this.num=amount+'';
   }
 }
 
@@ -58,19 +58,40 @@ export default class Order extends Product {
     return this._sendRequest(URL_ORDER_CREATE,Object.assign({},order));
   }
 
-  static fetchByStatus(status){
-    return this._sendRequest(URL_ORDER_LIST,{status:status});
+  /**
+   * fetch order list via order status
+   * @param  {String} memberId [description]
+   * @param  {Number} status   [description]
+   * @return {Promise}          [description]
+   */
+  static fetchByStatus(memid,status){
+    return this._sendRequest(URL_ORDER_LIST,{memid,status});
   }
 
-  static getById(orderId){
-    return this._sendRequest(URL_ORDER_DETAIL,{id:orderId});
+  /**
+   * get order detail via order id
+   * @param  {String|Number} orderid
+   * @return {Promise}
+   */
+  static getById(orderid){
+    return this._sendRequest(URL_ORDER_DETAIL,{orderid});
   }
 
-  static removeById(orderId){
-    return this._sendRequest(URL_ORDER_REMOVE,{id:orderId});
+  /**
+   * remove order via orderid
+   * @param  {Number|String} orderid
+   * @return {Promise}
+   */
+  static removeById(orderid){
+    return this._sendRequest(URL_ORDER_REMOVE,{orderid});
   }
 
-  static cancelById(orderId){
-    return this._sendRequest(URL_ORDER_CANCEL,{id:orderId})
+  /**
+   * cancel order via orderid
+   * @param  {String} orderid
+   * @return {Promise}
+   */
+  static cancelById(orderid){
+    return this._sendRequest(URL_ORDER_CANCEL,{orderid})
   }
 }

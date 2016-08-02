@@ -8,12 +8,18 @@
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="padding-vertical">
-          <order-item
-            v-for="item of orders"
-            v-link="{name:'orderDetail',params:{id:item.id}}">
+          <template v-if="orders.length>0">
+            <order-item
+              v-for="item of orders"
+              track-by="orderid"
+              :order="item"
+              @on-cancel="cancelOrder"
+              @on-remove="removeOrder"
+              v-link="{name:'orderDetail',params:{id:item.orderid}}">
 
-          </order-item>
-          <order-item @on-cancel="cancelOrder" @on-pay="pay" v-link="{name:'orderDetail',params:{id:1000}}"></order-item>
+            </order-item>
+          </template>
+
         </div>
       </scroller>
     </div>
@@ -23,31 +29,40 @@
 <script>
 import BaseView from './BaseView'
 import {
-  ORDER_STATUS_ALL,
+  ORDER_STATUS_CANCELED,
   ORDER_STATUS_UNPAY,
   ORDER_STATUS_PROCESS,
   ORDER_STATUS_DELIVERED,
-  ORDER_STATUS_FINISHED
+  ORDER_STATUS_FINISHED,
+  ORDER_STATUS_PAYED
 } from '../const'
 
 import Order, { OrderProductItem } from '../services/Order';
 
+import {find} from 'lodash'
+
 export default BaseView.extend({
   data: function () {
     return {
-      status:null,
+      status:'',
       tabList:[
-        {status:ORDER_STATUS_ALL,text:'全部'},
         {status:ORDER_STATUS_UNPAY,text:'未付款'},
+        {status:ORDER_STATUS_PAYED,text:'已付款'},
         {status:ORDER_STATUS_PROCESS,text:'处理中'},
         {status:ORDER_STATUS_DELIVERED,text:'已发货'},
-        {status:ORDER_STATUS_FINISHED,text:'已完成'}
+        {status:ORDER_STATUS_FINISHED,text:'已完成'},
+        {status:ORDER_STATUS_CANCELED,text:'已取消'}
+
       ],
       orders:[]
     }
   },
   ready(){
-    this.status=ORDER_STATUS_ALL;
+    this.status=ORDER_STATUS_UNPAY;
+    this.$on('cancel-order-success',function(orderid){
+      let order=find(this.orders,{orderid});
+      this.orders.$remove(order);
+    });
   },
   watch:{
     status(){
@@ -56,14 +71,26 @@ export default BaseView.extend({
   },
   methods:{
     fetchOrders(){
-      Order.fetchByStatus(this.status)
+      Order.fetchByStatus(this.$root.UID,this.status)
         .then(resp=>{
           this.orders=resp.datalist;
+          this.$rerender();
+          this.$scrollTop();
         });
     },
-    cancelOrder(){
-      Order.cancelById(111);
-      this.$toast('cancel order');
+    cancelOrder(order){
+      Order.cancelById(order.orderid)
+        .then(()=>{
+          this.orders.$remove(order);
+          this.$toast('取消订单成功');
+        });
+    },
+    removeOrder(order){
+      Order.removeById(order.orderid)
+        .then(()=>{
+          this.orders.$remove(order);
+          this.$toast('删除订单成功');
+        });
     },
     pay(){
       this.$toast('pay order');

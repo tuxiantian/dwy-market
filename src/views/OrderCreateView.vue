@@ -29,7 +29,7 @@
           <cell :title="selectedCartItems.length|productNumFormat"> 实付：
             <strong class="assertive" v-text="realPay|price"></strong>
           </cell>
-          <x-textarea placeholder="请输入订单备注信息"></x-textarea>
+          <x-textarea placeholder="请输入订单备注信息" :value.sync="remark"></x-textarea>
         </group>
         <!-- <group title="支付方式">
           <radio :options="payTypes" :value.sync="payType"></radio>
@@ -76,6 +76,7 @@
         freight: 5,
         taxRatio: 0.03,
         showPopup:false,
+        remark:'',
         consignee: {}
       }
     },
@@ -128,10 +129,21 @@
         let orderProductItems=this.selectedCartItems.map(item=>{
           return new OrderProductItem(item.id,item.num);
         });
+        let receid=this.selectedConsignee.receid;
 
-        let order=new Order(this.$root.UID,this.selectedConsignee.receid,'',orderProductItems);
+        let order=new Order(this.$root.UID,receid,this.remark,orderProductItems);
 
         order.save()
+          .then(()=>{
+            this.$toast('订单创建成功!');
+            this.removeSelectedCartItems();
+            this.$goBack();
+          });
+      },
+      removeSelectedCartItems(){
+        this.selectedCartItems.forEach(item=>{
+          this.removeCartItem(item.cartid);
+        });
       }
     }
   });

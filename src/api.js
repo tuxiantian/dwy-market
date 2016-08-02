@@ -63,25 +63,25 @@ export const URL_ORDER_CREATE = '/addOrder.do'
  * 订单列表
  * @type {string}
  */
-export const URL_ORDER_LIST = '/order'
+export const URL_ORDER_LIST = '/orderListById.do'
 
 /**
  * 订单详情
  * @type {string}
  */
-export const URL_ORDER_DETAIL = '/order'
+export const URL_ORDER_DETAIL = '/orderDetailById.do'
 
 /**
  * 删除订单
  * @type {string}
  */
-export const URL_ORDER_REMOVE = '/order'
+export const URL_ORDER_REMOVE = '/delOrder.do'
 
 /**
  * 取消订单
  * @type {string}
  */
-export const URL_ORDER_CANCEL = '/order'
+export const URL_ORDER_CANCEL = '/cancelOrder.do'
 
 /**
  * 查询收货人列表

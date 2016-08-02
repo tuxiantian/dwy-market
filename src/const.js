@@ -43,13 +43,19 @@ export const MODE_PRODUCT_ORDER = 3;
  * 订单状态，全部
  * @type {String}
  */
-export const ORDER_STATUS_ALL = 0;
+export const ORDER_STATUS_ALL = 99;
 
 /**
  * 订单状态：未支付
  * @type {Number}
  */
-export const ORDER_STATUS_UNPAY = 1;
+export const ORDER_STATUS_UNPAY = 0;
+
+/**
+ * 订单状态：已支付
+ * @type {Number}
+ */
+export const ORDER_STATUS_PAYED = 1;
 
 /**
  * 订单状态：处理中
@@ -68,6 +74,12 @@ export const ORDER_STATUS_DELIVERED = 3;
  * @type {Number}
  */
 export const ORDER_STATUS_FINISHED = 4;
+
+/**
+ * 订单状态：已取消
+ * @type {Number}
+ */
+export const ORDER_STATUS_CANCELED = -1;
 
 /**
  * 默认收货人状态

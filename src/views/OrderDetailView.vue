@@ -5,21 +5,21 @@
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="padding-bottom">
           <group title="订单信息">
-            <cell title="订单编号">01245125445</cell>
-            <cell title="订单状态">已关闭</cell>
-            <cell title="下单时间">2016-06-16 15:25:35</cell>
+            <cell title="订单编号">{{order.orderno}}</cell>
+            <cell title="订单状态">{{order.statusStr}}</cell>
+            <cell title="下单时间">{{order.ordertime}}</cell>
           </group>
 
           <group title="收货人信息">
-            <consignee-info-item :consignee="consignee"></consignee-info-item>
+            <consignee-info-item :consignee="order|consignee"></consignee-info-item>
             <div class="item">
               <h3 class="font-size-large">买家备注</h3>
               <p class="margin-top">
-                浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605
+                {{order.remarks}}
               </p>
             </div>
-            <div class="padding text-right">
-              <button type="button"  class="button">取消订单</button>
+            <div class="padding text-right" v-if="isUnpay">
+              <button type="button"  class="button" @click="cancelOrder">取消订单</button>
               <button type="button"  class="button button-assertive margin-left">
                 <strong>去付款</strong>
               </button>
@@ -27,12 +27,12 @@
           </group>
 
           <group title="商品信息" class="margin-bottom">
-            <product-item :mode="3"></product-item>
+            <product-item :mode="3" v-for="item of order.orderdList" :product="item"></product-item>
             <div class="item">
-              <div class="dark">共1件商品 运费：￥0.00 优惠：￥0.00</div>
+              <div class="dark">共{{productAmount}}件商品 运费：{{order.postmoney|price}}</div>
               <div class="dark text-right">
                 实付：
-                <span class="assertive">￥750.00</span>
+                <span class="assertive">{{order.paidmoney}}</span>
               </div>
             </div>
           </group>
@@ -45,20 +45,66 @@
 
 <script>
 import BaseView from './BaseView'
+import Order from '../services/Order'
+import {ORDER_STATUS_UNPAY,ORDER_STATUS_CANCELED} from '../const'
+
 export default BaseView.extend({
   data: function () {
     return {
-      consignee:{
-        name:'洪培吉',
-        address:'浙江省杭州市滨江区西兴街道官河锦庭2幢1单元1605',
-        mobile:13856232145
+      order:{}
+    }
+  },
+  route:{
+    data(){
+
+      return Order.getById(this.$route.params.id)
+        .then(resp=>{
+          this.$rerender();
+          this.$scrollTop();
+          return {order:resp.datalist}
+        });
+    }
+  },
+  computed:{
+    isUnpay(){
+      return this.order&&this.order.status==ORDER_STATUS_UNPAY;
+    },
+    productAmount(){
+      if(!this.order)return 0;
+
+      if(!this.order.orderdList)return 0;
+      
+      return this.order.orderdList.reduce((num,item)=>{
+        return num+Number(item.num);
+      },0);
+    },
+  },
+  filters:{
+    consignee(order){
+      return {
+        name:order.recer,
+        mobile:order.recerphone,
+        province:order.addr_province,
+        city:order.addr_city,
+        area:order.addr_area,
+        detail:order.addr_detail
       }
     }
   },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {}
+  methods:{
+    cancelOrder(){
+      let order=this.order;
+      let orderid=order.orderid;
+      Order.cancelById(orderid)
+        .then(()=>{
+          this.$toast('取消订单成功');
+
+          order.status=ORDER_STATUS_CANCELED;
+          order.statusStr='已取消';
+
+          this.$root.$broadcast('cancel-order-success',orderid);
+        });
+    }
+  }
 });
 </script>
