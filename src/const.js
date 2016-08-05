@@ -55,7 +55,7 @@ export const ORDER_STATUS_UNPAY = 0;
  * 订单状态：已支付
  * @type {Number}
  */
-export const ORDER_STATUS_PAYED = 1;
+export const ORDER_STATUS_PAID = 1;
 
 /**
  * 订单状态：处理中

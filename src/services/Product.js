@@ -15,7 +15,7 @@ export default class Product {
    * 发送请求
    * @param  {String} url    请求地址
    * @param  {Object} params 请求参数
-   * @return {Promise}        
+   * @return {Promise}
    */
   static _sendRequest(url, params) {
     return new Promise(function(resolve, reject) {
@@ -34,6 +34,12 @@ export default class Product {
         });
     });
   }
+
+  /**
+   * get product list by category
+   * @param  {Number} category
+   * @return {Promise}
+   */
   static fetch(category) {
     var params = {
       id: category
@@ -43,14 +49,27 @@ export default class Product {
   }
 
 
+  /**
+   * get recommend product list
+   * @return {Promise}
+   */
   static fetchRecommend() {
     return this._sendRequest(URL_PRODUCT_REC);
   }
 
+  /**
+   * get category list
+   * @return {Promise}
+   */
   static fetchCategory() {
     return this._sendRequest(URL_CATEGORY_LIST);
   }
 
+  /**
+   * get product detail by product id
+   * @param  {String} productId
+   * @return {Promise}           
+   */
   static getById(productId) {
     var params = {
       goodsid: productId

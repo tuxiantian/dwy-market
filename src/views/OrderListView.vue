@@ -34,7 +34,7 @@ import {
   ORDER_STATUS_PROCESS,
   ORDER_STATUS_DELIVERED,
   ORDER_STATUS_FINISHED,
-  ORDER_STATUS_PAYED
+  ORDER_STATUS_PAID
 } from '../const'
 
 import Order, { OrderProductItem } from '../services/Order';
@@ -44,10 +44,10 @@ import {find} from 'lodash'
 export default BaseView.extend({
   data: function () {
     return {
-      status:'',
+      status:ORDER_STATUS_UNPAY,
       tabList:[
         {status:ORDER_STATUS_UNPAY,text:'未付款'},
-        {status:ORDER_STATUS_PAYED,text:'已付款'},
+        {status:ORDER_STATUS_PAID,text:'已付款'},
         {status:ORDER_STATUS_PROCESS,text:'处理中'},
         {status:ORDER_STATUS_DELIVERED,text:'已发货'},
         {status:ORDER_STATUS_FINISHED,text:'已完成'},
@@ -57,8 +57,12 @@ export default BaseView.extend({
       orders:[]
     }
   },
+  route:{
+    data(){
+      return this.fetchOrders();
+    }
+  },
   ready(){
-    this.status=ORDER_STATUS_UNPAY;
     this.$on('cancel-order-success',function(orderid){
       let order=find(this.orders,{orderid});
       this.orders.$remove(order);
@@ -71,7 +75,7 @@ export default BaseView.extend({
   },
   methods:{
     fetchOrders(){
-      Order.fetchByStatus(this.$root.UID,this.status)
+      return Order.fetchByStatus(this.$root.UID,this.status)
         .then(resp=>{
           this.orders=resp.datalist;
           this.$rerender();

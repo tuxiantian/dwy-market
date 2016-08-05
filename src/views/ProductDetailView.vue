@@ -4,7 +4,7 @@
     <div class="scroll-content has-header has-footer">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
         <div class="">
-          <swiper height="200px" :list="product.imgurls"></swiper>
+          <swiper height="200px" :list="product.imgurls" :auto="true"></swiper>
           <div class="item">
             <h3 class="padding-bottom" v-text="product.name"></h3>
             <div class="">
@@ -115,12 +115,9 @@ export default BaseView.extend({
       font-size: 10px;
       padding: 1px 7px;
     }
-
-    // .button{
-    //   position: absolute;
-    //   right: 0;
-    //   height: 100%;
-    //   border-radius: 0;
-    // }
   }
+  .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-swiper-desc {
+    display: none !important;
+  }
+
 </style>

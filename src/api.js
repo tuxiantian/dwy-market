@@ -5,6 +5,12 @@
 export const URL_PRODUCT_REC = '/index_goods.do'
 
 /**
+ * 首页轮播图
+ * @type {String}
+ */
+export const URL_SLIDE_LIST='/index_banner.do'
+
+/**
  * 商品分类列表
  * @type {String}
  */
