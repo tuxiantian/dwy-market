@@ -80,6 +80,7 @@
         taxRatio: 0.03,
         remark:'',
         showPopup:false,
+        remark:'',
         consignee: {}
       }
     },
@@ -133,7 +134,7 @@
         let orderProductItems=this.selectedCartItems.map(item=>{
           return new OrderProductItem(item.id,item.num);
         });
-        
+
         let {UID}=this.$root;
         let {receid}=this.selectedConsignee;
         
@@ -142,13 +143,17 @@
         order.save()
           .then((resp) =>{
             this.$toast('创建订单成功!');
-            
-            this.selectedCartItems.forEach(item=>{
-              this.removeCartItem(item.cartid);
-            });
-            
-            history.back();
+            this.removeSelectedCartItems();
+            this.$goBack();
           });
+
+      },
+      removeSelectedCartItems(){
+        
+        this.selectedCartItems.forEach(item=>{
+          this.removeCartItem(item.cartid);
+        });
+
       }
     }
   });

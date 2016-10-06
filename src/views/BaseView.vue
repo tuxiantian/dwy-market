@@ -146,8 +146,3 @@
     }
   })
 </script>
-<style lang="scss">
-  .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-swiper-desc {
-    display: none;
-  }
-</style>

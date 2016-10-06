@@ -138,6 +138,13 @@
     }
   }
 
+  .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-swiper-desc {
+    margin:0;
+    background:rgba(0,0,0,0.5);
+    height: auto !important;
+    background-image: none !important;
+  }
+
   .flex{
     @include display-flex();
 

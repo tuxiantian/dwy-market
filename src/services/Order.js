@@ -15,9 +15,11 @@ export class OrderProductItem {
    * @param  {Number} amount    product amount
    * @return {OrderProductItem}
    */
+
   constructor(productId, amount) {
     this.goodsid = productId;
     this.num = String(amount);
+
   }
 }
 
@@ -54,35 +56,43 @@ export default class Order {
   static create(order) {
     return Request(URL_ORDER_CREATE, Object.assign({}, order));
   }
-  
-  static fetchByStatus(status) {
-    return Request(URL_ORDER_LIST, {status});
-  }
-  
+
+
   /**
-   * 通过订单ID获取订单详情
-   * @param id {String}
-   * @returns {Promise}
+   * fetch order list via order status
+   * @param  {String} memberId [description]
+   * @param  {Number} status   [description]
+   * @return {Promise}          [description]
    */
-  static getById(id) {
-    return Request(URL_ORDER_DETAIL, {id});
+  static fetchByStatus(memid,status){
+    return Request(URL_ORDER_LIST,{memid,status});
   }
-  
+
   /**
-   * 根据Id删除订单
-   * @param id {String}
-   * @returns {Promise}
+   * get order detail via order id
+   * @param  {String|Number} orderid
+   * @return {Promise}
    */
-  static removeById(id) {
-    return Request(URL_ORDER_REMOVE, {id});
+  static getById(orderid){
+    return Request(URL_ORDER_DETAIL,{orderid});
   }
-  
+
   /**
-   * 取消订单
-   * @param id {String}
-   * @returns {Promise}
+   * remove order via orderid
+   * @param  {Number|String} orderid
+   * @return {Promise}
    */
-  static cancelById(id) {
-    return Request(URL_ORDER_CANCEL, {id})
+  static removeById(orderid){
+    return Request(URL_ORDER_REMOVE,{orderid});
+  }
+
+  /**
+   * cancel order via orderid
+   * @param  {String} orderid
+   * @return {Promise}
+   */
+  static cancelById(orderid){
+    return Request(URL_ORDER_CANCEL,{orderid})
+
   }
 }

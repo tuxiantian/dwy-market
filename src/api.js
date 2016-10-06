@@ -5,6 +5,12 @@
 export const URL_PRODUCT_REC = '/index_goods.do'
 
 /**
+ * 首页轮播图
+ * @type {String}
+ */
+export const URL_SLIDE_LIST='/index_banner.do'
+
+/**
  * 商品分类列表
  * @type {String}
  */
@@ -63,25 +69,27 @@ export const URL_ORDER_CREATE = '/addOrder.do'
  * 订单列表
  * @type {string}
  */
-export const URL_ORDER_LIST = '/order.do'
+
+export const URL_ORDER_LIST = '/orderListById.do'
+
 
 /**
  * 订单详情
  * @type {string}
  */
-export const URL_ORDER_DETAIL = '/order'
+export const URL_ORDER_DETAIL = '/orderDetailById.do'
 
 /**
  * 删除订单
  * @type {string}
  */
-export const URL_ORDER_REMOVE = '/order'
+export const URL_ORDER_REMOVE = '/delOrder.do'
 
 /**
  * 取消订单
  * @type {string}
  */
-export const URL_ORDER_CANCEL = '/order'
+export const URL_ORDER_CANCEL = '/cancelOrder.do'
 
 /**
  * 查询收货人列表

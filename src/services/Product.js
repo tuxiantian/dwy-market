@@ -16,6 +16,7 @@ export default class Product {
    * @param category {String}
    * @returns {Promise}
    */
+
   static fetch(category) {
     var params = {
       id: category
@@ -23,7 +24,7 @@ export default class Product {
     
     return Request(URL_PRODUCT_LIST, params);
   }
-  
+
   /**
    * 获取推荐产品列表
    * @returns {Promise}
@@ -31,6 +32,7 @@ export default class Product {
   static fetchRecommend() {
     return Request(URL_PRODUCT_REC);
   }
+
   
   /**
    * 获取产品类型列表
@@ -39,6 +41,7 @@ export default class Product {
   static fetchCategory() {
     return Request(URL_CATEGORY_LIST);
   }
+
   
   /**
    * 通过产品ID获取产品详情
