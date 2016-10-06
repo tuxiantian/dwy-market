@@ -16,7 +16,7 @@
     "indent_with_tabs": true,
     "preserve_newlines": false,
     "max_preserve_newlines": 0,
-    "jslint_happy": true
+    "jslint_happy": false
   },
   "sql": {
     "indent_size": 4,

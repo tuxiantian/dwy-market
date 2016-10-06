@@ -113,7 +113,7 @@ export function createConsignee({
  * get consignee by id
  * @param  {Object} {state}
  * @param  {Number|String} id
- * @return {void}
+ * @return {Object}
  */
 export function getConsigneeById({
 	state
@@ -136,17 +136,18 @@ export function removeConsigneeById({
 		this.$emit('remove-consignee-success');
 	});
 }
+
+
 /**
  * 更新收货人信息
- * @param  {function}  {  dispatch}
- * @param  {String}  memberId
- * @param  {Array}  {  address
- * @param  {String}  name
- * @param  {String}  mobile
- * @param  {String}  detail
- * @param  {Number} isDefault
- * @param  {String}  receid}
- * @return {void}
+ * @param dispatch
+ * @param memberId
+ * @param address
+ * @param name
+ * @param mobile
+ * @param detail
+ * @param isDefault
+ * @param receid
  */
 export function updateConsignee({
 	dispatch
@@ -166,6 +167,14 @@ export function updateConsignee({
 		this.$emit('update-consignee-success');
 	});
 }
+
+/**
+ * 设置默认联系人
+ * @param dispatch
+ * @param state
+ * @param id
+ * @param memberId
+ */
 export function setDefaultConsignee({
 	dispatch,
 	state

@@ -1,6 +1,4 @@
-
-import Vue from 'vue'
-import Product from './Product'
+import Request from './Request'
 import {
   URL_CONSIGNEE_CREATE,
   URL_CONSIGNEE_DEF_GET,
@@ -9,13 +7,12 @@ import {
   URL_CONSIGNEE_REMOVE,
   URL_CONSIGNEE_UPDATE
 }
-from '../api'
+  from '../api'
 
 import {
-  CONSIGNEE_DEFAULT,
-  CONSIGNEE_NORMAL
+  CONSIGNEE_DEFAULT
 }
-from '../const'
+  from '../const'
 
 class Address {
   /**
@@ -34,8 +31,8 @@ class Address {
 }
 
 
-export default class Consignee extends Product {
-
+export default class Consignee {
+  
   /**
    * create a consignee instance
    * @param name {String}
@@ -44,14 +41,13 @@ export default class Consignee extends Product {
    * @param [isDefault=0] {Number}
    */
   constructor(name, mobile, address, isDefault = CONSIGNEE_DEFAULT) {
-    super();
-
+    
     this.name = name;
     this.mobile = mobile;
     this.isDef = isDefault;
     Object.assign(this, address);
   }
-
+  
   /**
    * save consignee
    * @param memberId {String|Number}
@@ -60,7 +56,7 @@ export default class Consignee extends Product {
   save(memberId) {
     return Consignee.create(this, memberId);
   }
-
+  
   /**
    * update consignee
    * @param memberId {Number|String}
@@ -69,7 +65,7 @@ export default class Consignee extends Product {
   update(id, memberId) {
     return Consignee.updateById(id, memberId, this);
   }
-
+  
   /**
    * create a consignee
    * @param consignee {Consignee}
@@ -77,67 +73,68 @@ export default class Consignee extends Product {
    * @returns {Promise}
    */
   static create(consignee, memberId) {
+    
     consignee.memid = memberId;
-    return this._sendRequest(
+    
+    return Request(
       URL_CONSIGNEE_CREATE,
       Object.assign({}, consignee)
     );
   }
-
+  
   /**
    * update a consignee
-   * @param id {String|Number}
-   * @param memberId {String|Number}
+   * @param receid {String|Number}
+   * @param memid {String|Number}
    * @param consignee {Consignee}
    * @returns {Promise}
    */
-  static updateById(id, memberId, consignee) {
-    var data = Object.assign({}, consignee);
-
-    data.memid = memberId;
-    data.receid = id;
-
-    return this._sendRequest(URL_CONSIGNEE_UPDATE, data);
+  static updateById(receid, memid, consignee) {
+    
+    let params = {receid, memid};
+    
+    Object.assign(params, consignee);
+    
+    return Request(URL_CONSIGNEE_UPDATE, params);
   }
-
+  
   /**
    * remove a consignee
-   * @param id {Number|String}
+   * @param receid {Number|String}
    * @returns {Promise}
    */
-  static removeById(id) {
-    return this._sendRequest(URL_CONSIGNEE_REMOVE, {
-      receid: id
-    });
+  static removeById(receid) {
+    return Request(URL_CONSIGNEE_REMOVE, {receid});
   }
-
+  
   /**
    * 获取收货人列表
-   * @static
-   * @returns {Array}
-   */
-  static fetch(memberId) {
-    return this._sendRequest(URL_CONSIGNEE_LIST, {
-      memid: memberId
-    });
-  }
-
-  /**
-   * get the default consignee
-   * @param memberId
+   * @param memid {String}
    * @returns {Promise}
    */
-  static getDefault(memberId) {
-    return this._sendRequest(URL_CONSIGNEE_DEF_GET, {
-      memid: memberId
-    });
+  static fetch(memid) {
+    return Request(URL_CONSIGNEE_LIST, {memid});
   }
-
-  static setDefault(id,memberId){
-
-    return this._sendRequest(
+  
+  /**
+   * get the default consignee
+   * @param memid {String}
+   * @returns {Promise}
+   */
+  static getDefault(memid) {
+    return Request(URL_CONSIGNEE_DEF_GET, {memid});
+  }
+  
+  /**
+   * 设置默认联系人
+   * @param receid
+   * @returns {Promise}
+   */
+  static setDefault(receid) {
+    
+    return Request(
       URL_CONSIGNEE_DEF_SET,
-      {receid:id,isDef:CONSIGNEE_DEFAULT}
+      {receid, isDef: CONSIGNEE_DEFAULT}
     );
   }
 }

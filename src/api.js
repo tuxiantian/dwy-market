@@ -26,7 +26,7 @@ export const URL_PRODUCT_DETAIL = '/goodsById.do'
  * 用户信息
  * @type {String}
  */
-export const URL_USER_INFO = '/getMemInfo.do'
+export const URL_USER_INFO = '/user.do'
 
 /**
  * 添加商品到购物车
@@ -63,7 +63,7 @@ export const URL_ORDER_CREATE = '/addOrder.do'
  * 订单列表
  * @type {string}
  */
-export const URL_ORDER_LIST = '/order'
+export const URL_ORDER_LIST = '/order.do'
 
 /**
  * 订单详情
@@ -118,3 +118,5 @@ export const URL_CONSIGNEE_DEF_GET='/defRece.do'
  * @type {String}
  */
 export const URL_CONSIGNEE_DEF_SET='/updRecerStatus.do'
+
+export const URL_INDEX_BANNER='/index_banner.do'

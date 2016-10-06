@@ -2,59 +2,61 @@ import {
   URL_PRODUCT_REC,
   URL_PRODUCT_LIST,
   URL_PRODUCT_DETAIL,
-  URL_CATEGORY_LIST
+  URL_CATEGORY_LIST,
+  URL_INDEX_BANNER
 }
-from '../api'
-import Vue from 'vue'
+  from '../api'
+
+import Request from './Request'
+
 export default class Product {
-  constructor() {
-
-  }
-
+  
   /**
-   * 发送请求
-   * @param  {String} url    请求地址
-   * @param  {Object} params 请求参数
-   * @return {Promise}        
+   * 根据产品类型获取产品列表
+   * @param category {String}
+   * @returns {Promise}
    */
-  static _sendRequest(url, params) {
-    return new Promise(function(resolve, reject) {
-      Vue.http.post(url, params)
-        .then(resp => {
-          var data = resp.data;
-
-          if (data.respCode == 0) {
-            return reject(resp);
-          }
-
-          resolve(data);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
   static fetch(category) {
     var params = {
       id: category
     };
-
-    return this._sendRequest(URL_PRODUCT_LIST, params);
+    
+    return Request(URL_PRODUCT_LIST, params);
   }
-
-
+  
+  /**
+   * 获取推荐产品列表
+   * @returns {Promise}
+   */
   static fetchRecommend() {
-    return this._sendRequest(URL_PRODUCT_REC);
+    return Request(URL_PRODUCT_REC);
   }
-
+  
+  /**
+   * 获取产品类型列表
+   * @returns {Promise}
+   */
   static fetchCategory() {
-    return this._sendRequest(URL_CATEGORY_LIST);
+    return Request(URL_CATEGORY_LIST);
   }
-
+  
+  /**
+   * 通过产品ID获取产品详情
+   * @param productId {String}
+   * @returns {Promise}
+   */
   static getById(productId) {
     var params = {
       goodsid: productId
     };
-    return this._sendRequest(URL_PRODUCT_DETAIL, params);
+    return Request(URL_PRODUCT_DETAIL, params);
+  }
+  
+  /**
+   * 获取首页banner
+   * @returns {Promise}
+   */
+  static getBanner() {
+    return Request(URL_INDEX_BANNER);
   }
 }

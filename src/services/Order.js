@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Product from './Product'
+import Request from './Request'
+
 import {
   URL_ORDER_CREATE,
   URL_ORDER_LIST,
@@ -8,69 +8,81 @@ import {
   URL_ORDER_CANCEL
 } from '../api'
 
-
-export class OrderProductItem{
-
+export class OrderProductItem {
   /**
    * create an order product instance
    * @param  {String} productId,
    * @param  {Number} amount    product amount
    * @return {OrderProductItem}
    */
-  constructor(productId,amount){
-    this.goodsid=productId;
-    this.num=amount;
+  constructor(productId, amount) {
+    this.goodsid = productId;
+    this.num = String(amount);
   }
 }
 
-export default class Order extends Product {
-
+export default class Order {
+  
   /**
    * create an order instance
-   * @param  {String} memberId
-   * @param  {String} consigneeId
-   * @param  {String} remark
-   * @param  {Array<OrderProductItem>} orderProductItems
-   * @return {Order}
+   * @param memberId {String}
+   * @param consigneeId {String}
+   * @param orderProductItems {Array<OrderProductItem>}
+   * @param [remark] {String}
    */
-  constructor (memberId,consigneeId,remark,orderProductItems){
-    super();
-    this.memid=memberId;
-    this.receid=consigneeId;
-    this.remark=remark;
-    this.goods=JSON.stringify(orderProductItems);
-  }
+  constructor(memberId, consigneeId, orderProductItems,remark) {
 
+    this.memid = memberId;
+    this.receid = consigneeId;
+    this.remark = remark;
+    this.goods = JSON.stringify(orderProductItems);
+  }
+  
   /**
    * save an order instance
    * @return {Promise}
    */
-  save(){
+  save() {
     return Order.create(this);
   }
-
+  
   /**
    * create an order
    * @param  {Order} order
    * @return {Promise}
    */
-  static create (order){
-    return this._sendRequest(URL_ORDER_CREATE,Object.assign({},order));
+  static create(order) {
+    return Request(URL_ORDER_CREATE, Object.assign({}, order));
   }
-
-  static fetchByStatus(status){
-    return this._sendRequest(URL_ORDER_LIST,{status:status});
+  
+  static fetchByStatus(status) {
+    return Request(URL_ORDER_LIST, {status});
   }
-
-  static getById(orderId){
-    return this._sendRequest(URL_ORDER_DETAIL,{id:orderId});
+  
+  /**
+   * 通过订单ID获取订单详情
+   * @param id {String}
+   * @returns {Promise}
+   */
+  static getById(id) {
+    return Request(URL_ORDER_DETAIL, {id});
   }
-
-  static removeById(orderId){
-    return this._sendRequest(URL_ORDER_REMOVE,{id:orderId});
+  
+  /**
+   * 根据Id删除订单
+   * @param id {String}
+   * @returns {Promise}
+   */
+  static removeById(id) {
+    return Request(URL_ORDER_REMOVE, {id});
   }
-
-  static cancelById(orderId){
-    return this._sendRequest(URL_ORDER_CANCEL,{id:orderId})
+  
+  /**
+   * 取消订单
+   * @param id {String}
+   * @returns {Promise}
+   */
+  static cancelById(id) {
+    return Request(URL_ORDER_CANCEL, {id})
   }
 }

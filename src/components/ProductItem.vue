@@ -1,6 +1,6 @@
 <template lang="html">
   <div :class="itemClass">
-    <img :src="product.imgurl" v-image-height="thumbWidth" class="thumbnail" alt="" />
+    <img :src="product.imgurl" v-image-height="thumbWidth" class="thumbnail" :alt="product.name" />
 
     <label class="checkbox checkbox-dark checkbox-small" v-if="isCartMode">
       <input type="checkbox" v-model="product.selected">
@@ -13,6 +13,7 @@
       <strike class="font-size-small" v-text="product.oldprice|price"></strike>
       <i class="dark icon icon-cart-plus" @click.stop="onCartButtonClick"></i>
     </div>
+    
     <template v-if="isCartMode">
       <strong class="assertive" v-text="product.price|price"></strong>
       <x-number @on-change="onChange" :min="1"  :value="product.num" :fillable="false"></x-number>
@@ -28,7 +29,7 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
 import Base from '../Base'
 
 import {
@@ -103,7 +104,7 @@ export default Base.extend({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" type="text/css" rel="stylesheet">
 @import "../scss/variables.scss";
 @import "../scss/mixins";
   .list{

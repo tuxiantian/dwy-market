@@ -19,8 +19,10 @@
         </group>
 
         <group title="商品信息">
-          <product-item :mode="3" v-for="item of selectedCartItems"
-          :product="item"></product-item>
+          <product-item :mode="3"
+            v-for="item of selectedCartItems"
+            :product="item">
+          </product-item>
           <cell title="运费">
             <span slot="after-title" class="font-size-small">(包邮)</span> {{freight|price}} </cell>
           <cell title="税费">
@@ -29,7 +31,7 @@
           <cell :title="selectedCartItems.length|productNumFormat"> 实付：
             <strong class="assertive" v-text="realPay|price"></strong>
           </cell>
-          <x-textarea placeholder="请输入订单备注信息"></x-textarea>
+          <x-textarea placeholder="请输入订单备注信息" :value.sync="remark"></x-textarea>
         </group>
         <!-- <group title="支付方式">
           <radio :options="payTypes" :value.sync="payType"></radio>
@@ -42,6 +44,7 @@
       </h4>
       <button class="button button-assertive" @click="onOrderButtonClick">提交订单</button>
     </div>
+    
     <popup :show.sync="showPopup" height="100%">
       <div class="bar bar-header bar-dark">
         <button class="button button-icon back-button" @click.stop="showPopup=false">
@@ -75,6 +78,7 @@
         payTypes: ['支付宝', '微信'],
         freight: 5,
         taxRatio: 0.03,
+        remark:'',
         showPopup:false,
         consignee: {}
       }
@@ -108,6 +112,7 @@
     },
     computed: {
       tax() {
+        //totalPrice定义在baseview
         return this.totalPrice * this.taxRatio;
       },
       realPay() {
@@ -128,10 +133,22 @@
         let orderProductItems=this.selectedCartItems.map(item=>{
           return new OrderProductItem(item.id,item.num);
         });
-
-        let order=new Order(this.$root.UID,this.selectedConsignee.receid,'',orderProductItems);
+        
+        let {UID}=this.$root;
+        let {receid}=this.selectedConsignee;
+        
+        let order=new Order(UID,receid,orderProductItems,this.remark);
 
         order.save()
+          .then((resp) =>{
+            this.$toast('创建订单成功!');
+            
+            this.selectedCartItems.forEach(item=>{
+              this.removeCartItem(item.cartid);
+            });
+            
+            history.back();
+          });
       }
     }
   });

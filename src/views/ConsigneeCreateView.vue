@@ -16,10 +16,10 @@
     data(){
       return {
         model:{
-          name:'洪培吉',
-          mobile:'15658963215',
+          name:'',
+          mobile:'',
           address:[],
-          detail:'东莞科鸡园'
+          detail:''
         }
       }
     },

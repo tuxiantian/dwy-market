@@ -11,41 +11,39 @@
   import Consignee from '../services/Consignee'
   import regions from 'vux/src/components/address/list.json'
   import {find} from 'lodash'
-
+  
   export default BaseView.extend({
     data(){
       return {
-        consignee:{
-
-        }
+        consignee: {}
       }
     },
-    route:{
+    route: {
       data(transition){
-        let consignee=this.getConsigneeById(this.$route.params.id);
-
-        consignee.address=[consignee.province,consignee.city,consignee.area].map(name=>{
-          return find(regions,{name}).value;
+        let consignee = this.getConsigneeById(this.$route.params.id);
+        
+        consignee.address = [consignee.province, consignee.city, consignee.area].map(name=> {
+          return find(regions, {name}).value;
         });
-        transition.next({consignee:consignee});
+        transition.next({consignee: consignee});
       }
     },
     ready(){
-      this.$on('update-consignee-success',()=>{
+      this.$on('update-consignee-success', ()=> {
         this.$toast('更新收货人成功！');
         this.$goBack();
       });
     },
     methods: {
       onSubmit(){
-        var model=Object.assign({},this.consignee);
-
-        model.address=model.address.map(id=>{
-          var region=find(regions,{value:id});
-          return region?region.name:'';
+        var model = Object.assign({}, this.consignee);
+        
+        model.address = model.address.map(id=> {
+          var region = find(regions, {value: id});
+          return region ? region.name : '';
         });
-
-        this.updateConsignee(this.$root.UID,model);
+        
+        this.updateConsignee(this.$root.UID, model);
       }
     }
   });

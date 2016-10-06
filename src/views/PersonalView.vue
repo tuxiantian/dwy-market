@@ -32,6 +32,8 @@
 <script>
 import BaseView from './BaseView'
 import {ROUTE_CONSIGNEE_LIST} from '../routes'
+import User from '../services/User'
+
 export default BaseView.extend({
   data: function () {
     return {
@@ -39,9 +41,17 @@ export default BaseView.extend({
     }
   },
   computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
+  ready () {
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo(){
+      User.getInfo()
+        .then(resp=>{
+          debugger;
+        });
+    }
+  },
   components: {}
 });
 </script>

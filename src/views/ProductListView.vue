@@ -43,12 +43,9 @@ export default BaseView.extend({
   methods: {
     fetchProducts(){
       Product.fetch(this.cateId)
-        .then(resp=>{
-          var arr=resp.datalist;
-          arr.forEach(item=>{
-            item.imgurl=p1;
-          });
-          this.products=arr;
+        .then(({datalist})=>{
+        
+          this.products=datalist;
           this.$rerender();
         });
     }

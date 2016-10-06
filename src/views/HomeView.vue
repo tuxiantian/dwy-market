@@ -47,11 +47,26 @@ export default BaseView.extend({
     }
   },
   ready(){
-    Product.fetchRecommend()
-      .then(resp=>{
-        this.products=resp.datalist;
-        this.$rerender();
-      });
+    this.queryRecommend();
+    this.getBanner();
+  },
+  methods:{
+    getBanner(){
+      Product.getBanner()
+        .then(resp=>{
+          this.slides=resp.datalist;
+          this.slides.forEach(item=>{
+            item.img=item.imgurl;
+          });
+        });
+    },
+    queryRecommend(){
+      Product.fetchRecommend()
+        .then(resp=>{
+          this.products=resp.datalist;
+          this.$rerender();
+        });
+    }
   }
 });
 
