@@ -2,7 +2,7 @@
   <div>
 
     <div>
-      <button class="button button-assertive" @click="onAddButtonClick">add tab</button>
+      <button class="button button-assertive" v-for="comp of comps" @click="onAddButtonClick($index)">{{comp}}</button>
     </div>
     <tab active-color="#222">
       <tab-item v-for="tab of tabList"
@@ -13,10 +13,8 @@
 
       <div class="tab-content" v-for="tab of tabList" v-show="tab.status===status">
         <h1>I am {{tab.text}}</h1>
-
-        <div>
-          <input type="text" class="">
-        </div>
+        <input type="text">
+        <component :is="tab.component"></component>
       </div>
 
     </div>
@@ -29,8 +27,9 @@
       return {
         status:1,
         tabList: [
-          {text:'tab1',status:1}
-        ]
+          {text:'tab1',status:1,component:'panel'}
+        ],
+        comps:['Hello','World']
       }
     },
     props: {
@@ -40,12 +39,22 @@
       }
     },
     methods: {
-      onAddButtonClick(){
-        var num=parseInt(Math.random()*100);
+      onAddButtonClick(i){
+
+        var compName=this.comps[i];
         this.tabList.push({
-          text:'tab'+num,
-          status:num
-        })
+          text:compName,
+          status:compName,
+          component:compName
+        });
+      }
+    },
+    components:{
+      Hello:{
+        template:`<h1>hello</h1>`
+      },
+      World:{
+        template:`<h1>world</h1>`
       }
     }
   })
