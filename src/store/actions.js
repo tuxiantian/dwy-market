@@ -9,7 +9,7 @@ import {
 	MUTATION_UPDATE_CONSIGNEES,
 	MUTATION_SET_DEFAULT_CONSIGNEES
 }
-from './mutations'
+	from './mutations'
 import {
 	find
 } from 'lodash'
@@ -18,7 +18,8 @@ import {
 	Consignee,
 	Address
 }
-from '../services/Consignee'
+	from '../services/Consignee'
+
 /**
  * 同步购物车商品列表
  * @param  {Object} store
@@ -101,11 +102,17 @@ export function createConsignee({
 	mobile,
 	detail
 }) {
+	
 	const [province, city, area] = address;
+	
 	address = new Address(province, city, area, detail);
+	
 	let consignee = new Consignee(name, mobile, address);
+	
 	consignee.save(memberId).then(resp => {
+		
 		dispatch(MUTATION_ADD_CONSIGNEE, resp.datalist);
+		
 		this.$emit('create-consignee-success');
 	});
 }
