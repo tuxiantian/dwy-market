@@ -16,7 +16,7 @@ import FansListView from './views/FansListView'
 import ConsigneeListView from './views/ConsigneeInfoListView';
 import ConsigneeInfoEditView from './views/ConsigneeInfoEditView';
 import ConsigneeCreateView from './views/ConsigneeCreateView.vue';
-
+import TabView from './views/TabView.vue'
 /**
  * 登录
  * @type {String}
@@ -217,6 +217,9 @@ export default {
   },
   '/login': {
     component: {}
+  },
+  '/test':{
+    component:TabView
   },
   '*': {
     component: {

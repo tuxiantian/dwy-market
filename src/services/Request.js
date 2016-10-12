@@ -6,7 +6,7 @@ const RESPONSE_STATUS_ERROR=0;
  * 发送请求
  * @param url {String}
  * @param [params] {Object}
- * @param [method]
+ * @param [method] {String}
  * @returns {Promise}
  * @constructor
  */
