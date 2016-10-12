@@ -71,14 +71,16 @@ export default BaseView.extend({
   watch:{
     status(){
       this.fetchOrders();
+    },
+    orders(){
+      this.$rerender();
     }
   },
   methods:{
     fetchOrders(){
       return Order.fetchByStatus(this.$root.UID,this.status)
-        .then(resp=>{
-          this.orders=resp.datalist;
-          this.$rerender();
+        .then(({datalist})=>{
+          this.orders=datalist;
           this.$scrollTop();
         });
     },

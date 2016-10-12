@@ -15,7 +15,7 @@
             <div class="item">
               <h3 class="font-size-large">买家备注</h3>
               <p class="margin-top">
-                {{order.remarks}}
+                {{order.remarks||'无'}}
               </p>
             </div>
             <div class="padding text-right" v-if="isUnpay">
