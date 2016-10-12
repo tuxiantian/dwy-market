@@ -32,12 +32,6 @@
         comps:['Hello','World']
       }
     },
-    props: {
-      someProp: {
-        type: String,
-        default: ''
-      }
-    },
     methods: {
       onAddButtonClick(i){
 
@@ -58,7 +52,7 @@
       }
     }
   })
-
+//6214 8357 1619 3246
 </script>
 <style lang="scss">
 
