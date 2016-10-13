@@ -6,7 +6,7 @@ export default class User {
 
   }
   
-  static getInfo (){
-    return Request(URL_USER_INFO);
+  static getInfo (superior=''){
+    return Request(URL_USER_INFO,{superior});
   }
 }
