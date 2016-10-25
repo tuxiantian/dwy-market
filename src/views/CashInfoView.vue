@@ -10,8 +10,9 @@
             <p>
               可提现金额
             </p>
-            <h1>0.00</h1>
-            <button type="button" class="button button-assertive">提现</button>
+            <h1>{{balance|price}}</h1>
+            <!--提现功能暂时不做，待定,2016.10.25-->
+            <!--<button type="button" class="button button-assertive">提现</button>-->
           </div>
           <group>
             <cell v-for="item of infoItems" :title="item.title">{{item.desc}}</cell>
@@ -20,8 +21,10 @@
           <div class="margin-top">
             <div class="bar bar-tab">
               <tab active-color="#222">
-                <tab-item>最近7天</tab-item>
-                <tab-item>最近30天</tab-item>
+                <tab-item v-for="item of days"
+                          :selected="item===day"
+                          @click="day = item">最近{{item}}天
+                </tab-item>
               </tab>
             </div>
           </div>
@@ -35,23 +38,45 @@
 <script lang="babel">
   import BaseView from './BaseView'
   import InfoItem from '../components/InfoItem'
+  import User from '../services/User'
 
   export default BaseView.extend({
-    data: function () {
+    data () {
       return {
-        infoItems: [
-          {title: '本月奖励', desc: '0.00'},
-          {title: '累计奖励', desc: '0.00'},
-          {title: '冻结奖励', desc: '0.00'}
-        ]
+        infoItems: {
+          curMonth: {title: '本月奖励', desc: '0.00'},
+          total: {title: '累计奖励', desc: '0.00'},
+          frozen: {title: '冻结奖励', desc: '0.00'}
+        },
+        balance:0,
+        day: 7,
+        days: [7, 30]
       }
     },
-    computed: {},
-    ready: function () {
+    route: {
+      data(){
+        this.getAccountInfo();
+      }
     },
-    attached: function () {
+    watch: {
+      day(){
+
+      }
     },
-    methods: {},
+    methods: {
+      getAccountInfo(){
+        User.getAccountDetail(this.$root.UID)
+        .then(resp=> {
+          let {data}=resp;
+          let {infoItems}=this;
+
+          this.balance=data.balance;
+          infoItems.total.desc=data.allreward;
+          infoItems.frozen.desc=data.frozenreward;
+          infoItems.curMonth.desc=data.monthreward;
+        });
+      }
+    },
     components: {
       InfoItem
     }

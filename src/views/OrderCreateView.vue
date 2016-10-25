@@ -42,7 +42,7 @@
       <h4 class="title">实付：
         <span class="assertive">{{realPay|price}}</span>
       </h4>
-      <button class="button button-assertive" @click="onOrderButtonClick">提交订单</button>
+      <button class="button button-assertive" :disabled="!consignee" @click="onOrderButtonClick">提交订单</button>
     </div>
     
     <popup :show.sync="showPopup" height="100%">
@@ -68,7 +68,7 @@
     </popup>
   </div>
 </template>
-<script>
+<script lang="babel">
   import BaseView from './BaseView.vue'
   import Order,{OrderProductItem} from  '../services/Order'
   export default BaseView.extend({
@@ -80,8 +80,7 @@
         taxRatio: 0.03,
         remark:'',
         showPopup:false,
-        remark:'',
-        consignee: {}
+        consignee: null
       }
     },
     route:{

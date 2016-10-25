@@ -15,6 +15,7 @@
               :order="item"
               @on-cancel="cancelOrder"
               @on-remove="removeOrder"
+              @on-pay="pay"
               v-link="{name:'orderDetail',params:{id:item.orderid}}">
 
             </order-item>
@@ -26,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
 import BaseView from './BaseView'
 import {
   ORDER_STATUS_CANCELED,
@@ -42,7 +43,7 @@ import Order, { OrderProductItem } from '../services/Order';
 import {find} from 'lodash'
 
 export default BaseView.extend({
-  data: function () {
+  data() {
     return {
       status:ORDER_STATUS_UNPAY,
       tabList:[
@@ -98,8 +99,12 @@ export default BaseView.extend({
           this.$toast('删除订单成功');
         });
     },
-    pay(){
-      this.$toast('pay order');
+    pay(order){
+      Order.pay()
+        .then(resp=>{
+          this.roders.$remove(order);
+          this.$alert('订单支付成功');
+        });
     }
   }
 });

@@ -21,6 +21,7 @@ import Radio from 'vux/src/components/radio'
 import Actionsheet from 'vux/src/components/actionsheet'
 import Popup from 'vux/src/components/popup'
 
+
 import {isUndefined} from 'lodash'
 
 export default Vue.extend({

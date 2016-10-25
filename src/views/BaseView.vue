@@ -18,6 +18,7 @@
   import OrderItem from '../components/OrderItem'
   import ConsigneeInfoItem from '../components/ConsigneeInfoItem.vue'
   import ConsigneeForm from '../components/ConsigneeForm.vue'
+  import FansItem from '../components/FansItem.vue'
 
   import {
     EVENT_PULLUP_RESET,
@@ -76,7 +77,8 @@
       CateItem,
       OrderItem,
       ConsigneeInfoItem,
-      ConsigneeForm
+      ConsigneeForm,
+      FansItem
     },
     ready() {
       this.$rerender();

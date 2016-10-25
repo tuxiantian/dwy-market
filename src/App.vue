@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
   import store from './store'
   import Loading from 'vux/src/components/loading'
   import Toast from 'vux/src/components/toast'

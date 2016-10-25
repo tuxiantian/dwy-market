@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
 
 import ProductItem from './ProductItem'
 import Base from '../Base'

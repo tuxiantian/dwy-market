@@ -20,7 +20,7 @@
             </div>
             <div class="padding text-right" v-if="isUnpay">
               <button type="button"  class="button" @click="cancelOrder">取消订单</button>
-              <button type="button"  class="button button-assertive margin-left">
+              <button type="button"  class="button button-assertive margin-left" @click="pay">
                 <strong>去付款</strong>
               </button>
             </div>
@@ -43,10 +43,10 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
 import BaseView from './BaseView'
 import Order from '../services/Order'
-import {ORDER_STATUS_UNPAY,ORDER_STATUS_CANCELED} from '../const'
+import {ORDER_STATUS_UNPAY,ORDER_STATUS_PAID,ORDER_STATUS_CANCELED} from '../const'
 
 export default BaseView.extend({
   data: function () {
@@ -104,6 +104,13 @@ export default BaseView.extend({
 
           this.$root.$broadcast('cancel-order-success',orderid);
         });
+    },
+    pay(){
+      Order.pay()
+      .then(resp=>{
+        this.$alert('支付成功');
+        this.order.status=ORDER_STATUS_PAID;
+      });
     }
   }
 });

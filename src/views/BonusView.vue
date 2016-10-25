@@ -23,6 +23,9 @@
             </div>
             <div class="margin-top light-bg padding">
               <h6>下单粉丝</h6>
+              <div>
+                <fans-item v-for="item of fansList" :fans="item"></fans-item>
+              </div>
             </div>
           </div>
         </scroller>
@@ -35,12 +38,13 @@
   import BaseView from './BaseView'
   import InfoItem from '../components/InfoItem'
   import User from '../services/User'
-
+//3519259812
   export default BaseView.extend({
     data () {
       return {
         days:7,
         dayList:[7,30],
+        fansList:[],
         infoItems: {
           reward: {title: '代言奖励', desc: '0.00'},
           newFans: {title: '新增粉丝', desc: '0'},
@@ -51,12 +55,12 @@
     },
     route: {
       data(){
-        this.getRewardDetail();
+        this.getAccountDetail();
       }
     },
     watch:{
       days(){
-        this.getRewardDetail();
+        this.getAccountDetail();
       }
     },
     methods: {
@@ -71,6 +75,7 @@
             infoItems.fansOrder.desc=data.fansorder;
             infoItems.fansMoney.desc=data.fansmoney;
 
+            this.fansList=resp.list;
           });
       }
     },
