@@ -2,7 +2,7 @@
 
 </template>
 
-<script>
+<script lang="babel">
 import Vue from 'vue'
 import imageHeight from './directives/imageHeight'
 import price from './filters/price'
@@ -21,6 +21,8 @@ import Radio from 'vux/src/components/radio'
 import Actionsheet from 'vux/src/components/actionsheet'
 import Popup from 'vux/src/components/popup'
 
+import {isUndefined} from 'lodash'
+
 export default Vue.extend({
   data: function () {
     const width=document.body.offsetWidth;
@@ -33,7 +35,10 @@ export default Vue.extend({
     imageHeight
   },
   filters:{
-    price
+    price,
+    toString(val){
+      return isUndefined(val)?'':val+'';
+    }
   },
   components: {
     Scroller,

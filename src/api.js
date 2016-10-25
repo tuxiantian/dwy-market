@@ -127,4 +127,32 @@ export const URL_CONSIGNEE_DEF_GET='/defRece.do'
  */
 export const URL_CONSIGNEE_DEF_SET='/updRecerStatus.do'
 
+/**
+ * 首页banner
+ * @type {string}
+ */
 export const URL_INDEX_BANNER='/index_banner.do'
+
+/**
+ * 奖励明细
+ * @type {string}
+ */
+export const URL_REWARD_DETAIL='/reward.do'
+
+/**
+ * 奖励列表
+ * @type {string}
+ */
+export const URL_REWARD_LIST='/accountlist.do'
+
+/**
+ * 粉丝列表
+ * @type {string}
+ */
+export const URL_FANS_LIST='/fanslist.do'
+
+/**
+ * 帐户明细
+ * @type {string}
+ */
+export const URL_ACCOUNT_DETAIL='/account.do'

@@ -22,7 +22,7 @@
 
 </template>
 
-<script type="text/javascript">
+<script lang="babel">
 
 import BaseView from './BaseView.vue'
 

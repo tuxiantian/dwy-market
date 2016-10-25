@@ -3,6 +3,8 @@
     <bar-header title="可提现金额"></bar-header>
     <div class="scroll-content has-header">
       <scroller :lock-x="true" height="100%" v-ref:scroller>
+
+
         <div class="">
           <div class="item item-button-right">
             <p>
@@ -14,6 +16,7 @@
           <group>
             <cell v-for="item of infoItems" :title="item.title">{{item.desc}}</cell>
           </group>
+
           <div class="margin-top">
             <div class="bar bar-tab">
               <tab active-color="#222">
@@ -21,46 +24,50 @@
                 <tab-item>最近30天</tab-item>
               </tab>
             </div>
-          </group>
+          </div>
         </div>
       </scroller>
     </div>
   </div>
+
 </template>
 
-<script>
-import BaseView from './BaseView'
-import InfoItem from '../components/InfoItem'
+<script lang="babel">
+  import BaseView from './BaseView'
+  import InfoItem from '../components/InfoItem'
 
-export default BaseView.extend({
-  data: function () {
-    return {
-      infoItems:[
-        {title:'本月奖励',desc:'0.00'},
-        {title:'累计奖励',desc:'0.00'},
-        {title:'冻结奖励',desc:'0.00'}
-      ]
+  export default BaseView.extend({
+    data: function () {
+      return {
+        infoItems: [
+          {title: '本月奖励', desc: '0.00'},
+          {title: '累计奖励', desc: '0.00'},
+          {title: '冻结奖励', desc: '0.00'}
+        ]
+      }
+    },
+    computed: {},
+    ready: function () {
+    },
+    attached: function () {
+    },
+    methods: {},
+    components: {
+      InfoItem
     }
-  },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {
-    InfoItem
-  }
-})
+  })
 </script>
 
 <style lang="scss" scoped>
 
-  .bar-tab{
+  .bar-tab {
     display: block;
-    padding:0;
+    padding: 0;
   }
-  .item-button-right{
-    .button{
-      top:40px;
+
+  .item-button-right {
+    .button {
+      top: 40px;
     }
   }
 </style>
