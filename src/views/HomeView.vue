@@ -48,8 +48,8 @@ export default BaseView.extend({
   methods:{
     getBanner(){
       Product.getBanner()
-        .then(resp=>{
-          this.slides=resp.datalist;
+        .then(({datalist})=>{
+          this.slides=datalist;
           this.slides.forEach(item=>{
             item.img=item.imgurl;
           });
@@ -57,8 +57,8 @@ export default BaseView.extend({
     },
     queryRecommend(){
       Product.fetchRecommend()
-        .then(resp=>{
-          this.products=resp.datalist;
+        .then(({datalist})=>{
+          this.products=datalist;
           this.$rerender();
         });
     }

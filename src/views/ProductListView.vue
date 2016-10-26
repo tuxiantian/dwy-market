@@ -16,14 +16,14 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
 import BaseView from './BaseView'
 import Product from '../services/Product'
 import p1 from '../assets/p1.jpg'
 import p2 from '../assets/p2.jpg'
 
 export default BaseView.extend({
-  data: function () {
+  data () {
     return {
       cateId:null,
       products:[]
@@ -50,8 +50,7 @@ export default BaseView.extend({
           this.$rerender();
         });
     }
-  },
-  components: {}
+  }
 });
 </script>
 

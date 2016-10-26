@@ -5,6 +5,12 @@
 export const URL_PRODUCT_REC = '/index_goods.do'
 
 /**
+ * 搜索商品
+ * @type {string}
+ */
+export const URL_PRODUCT_SEARCH = '/goodsBySearchKey.do'
+
+/**
  * 首页轮播图
  * @type {String}
  */
