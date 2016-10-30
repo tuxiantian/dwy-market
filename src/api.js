@@ -98,6 +98,12 @@ export const URL_ORDER_REMOVE = '/delOrder.do'
 export const URL_ORDER_CANCEL = '/cancelOrder.do'
 
 /**
+ * 订单支付
+ * @type {string}
+ */
+export const URL_ORDER_PAY='/pay.do'
+
+/**
  * 查询收货人列表
  * @type {String}
  */
@@ -162,3 +168,9 @@ export const URL_FANS_LIST='/fanslist.do'
  * @type {string}
  */
 export const URL_ACCOUNT_DETAIL='/account.do'
+
+/**
+ * 获取jssdk配置参数
+ * @type {string}
+ */
+export const URL_WEIXIN_JSSKD_CONFIG_PARAMS='/toPay.do'

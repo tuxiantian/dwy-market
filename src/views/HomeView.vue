@@ -1,68 +1,74 @@
-<template lang="html">
+<template>
 
-<div class="">
+  <div class="">
     <bar-header :mode="headerType"
-    :show-back="false"
-    :show-cancel="false"
-    v-touch:tap="onHeaderBarTap"></bar-header>
+                :show-back="false"
+                :show-cancel="false"
+                v-touch:tap="onHeaderBarTap">
+
+    </bar-header>
     <div class="scroll-content has-header">
-        <scroller :lock-x="true" height="100%" v-ref:scroller>
-          <div>
-            <swiper height="200px" :list="slides" :auto="true"></swiper>
-            <div class="list margin-top">
-              <product-item :mode="productMode"
-                v-link="{name:'productDetail',params:{id:product.id}}"
-                :product="product"
-                v-for="product of products"></product-item>
-            </div>
+      <scroller :lock-x="true" height="100%" v-ref:scroller>
+        <div>
+          <swiper height="200px" :list="slides" :auto="true">
+
+          </swiper>
+          <div class="list margin-top">
+            <product-item :mode="productMode"
+                          v-link="{name:'productDetail',params:{id:product.id}}"
+                          :product="product"
+                          v-for="product of products">
+
+            </product-item>
           </div>
-        </scroller>
+        </div>
+      </scroller>
     </div>
-</div>
+  </div>
 
 </template>
 
 <script lang="babel">
 
-import BaseView from './BaseView.vue'
+  import BaseView from './BaseView.vue'
 
-import {MODE_HEADER_SEARCH,MODE_PRODUCT_REC} from '../const'
-import {ROUTE_SEARCH} from '../routes'
-import {URL_SLIDE_LIST} from '../api'
-import Product from '../services/Product'
+  import {MODE_HEADER_SEARCH, MODE_PRODUCT_REC} from '../const'
+  import {ROUTE_SEARCH} from '../routes'
+  import {URL_SLIDE_LIST} from '../api'
+  import Product from '../services/Product'
 
-export default BaseView.extend({
-  data() {
-    return {
-      headerType: MODE_HEADER_SEARCH,
-      products:[],
-      productMode:MODE_PRODUCT_REC,
-      slides:[]
-    }
-  },
-
-  ready(){
-    this.queryRecommend();
-    this.getBanner();
-  },
-  methods:{
-    getBanner(){
-      Product.getBanner()
-        .then(({datalist})=>{
-          this.slides=datalist;
-          this.slides.forEach(item=>{
-            item.img=item.imgurl;
-          });
-        });
+  export default BaseView.extend({
+    data() {
+      return {
+        headerType: MODE_HEADER_SEARCH,
+        products: [],
+        productMode: MODE_PRODUCT_REC,
+        slides: []
+      }
     },
-    queryRecommend(){
-      Product.fetchRecommend()
-        .then(({datalist})=>{
-          this.products=datalist;
-          this.$rerender();
-        });
+
+    ready(){
+      this.queryRecommend();
+      this.getBanner();
+    },
+    methods: {
+      getBanner(){
+        Product.getBanner()
+                .then(({datalist})=> {
+                  this.slides = datalist;
+                  this.slides.forEach(item=> {
+                    item.img = item.imgurl;
+                  });
+                });
+      },
+      queryRecommend(){
+        Product.fetchRecommend()
+                .then(({datalist})=> {
+                  this.products = datalist;
+                  this.$rerender();
+                });
+      }
     }
-  }
-});
+  });
 
 </script>

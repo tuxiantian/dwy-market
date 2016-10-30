@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="">
     <div class="scroll-content has-footer">
-      <scroller :lock-x=true height="100%" v-ref:scroller>
+      <scroller :lock-x=true height="100%" v-show="cartItems.length>0" v-ref:scroller>
         <div class="">
           <product-item :mode="mode"
             v-for="item of cartItems"
@@ -12,6 +12,9 @@
           </product-item>
         </div>
       </scroller>
+      <none-data-view v-show="cartItems.length===0" icon="shopping-cart" text="购物车空空如也">
+
+      </none-data-view>
     </div>
     <footer class="bar bar-footer bar-button-right">
       <label class="checkbox checkbox-dark checkbox-small">
